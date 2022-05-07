@@ -7,12 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0917C67ABD36954AC0133D51 /* Pods_NimbleSurveyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AA7E6E9C33C613EA139FEB6 /* Pods_NimbleSurveyTests.framework */; };
+		A8FAD71E23805220151CCA7D /* Pods_NimbleSurvey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 751826C3CE8924153C581A39 /* Pods_NimbleSurvey.framework */; };
 		D8492CC42825E610004F949D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492CC32825E610004F949D /* AppDelegate.swift */; };
-		D8492CC82825E610004F949D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492CC72825E610004F949D /* ViewController.swift */; };
-		D8492CCB2825E610004F949D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8492CC92825E610004F949D /* Main.storyboard */; };
 		D8492CCD2825E611004F949D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8492CCC2825E611004F949D /* Assets.xcassets */; };
 		D8492CD02825E611004F949D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8492CCE2825E611004F949D /* LaunchScreen.storyboard */; };
 		D8492CDB2825E611004F949D /* NimbleSurveyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492CDA2825E611004F949D /* NimbleSurveyTests.swift */; };
+		D8492CFB28260ED7004F949D /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492CFA28260ED7004F949D /* R.generated.swift */; };
+		D8492CFE28260F49004F949D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492CFD28260F49004F949D /* LoginViewController.swift */; };
+		D8492D02282612FA004F949D /* Applicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D01282612FA004F949D /* Applicable.swift */; };
+		D8492D05282628F5004F949D /* LinearGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D04282628F5004F949D /* LinearGradientView.swift */; };
+		D8492D0728262AE8004F949D /* UIView+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D0628262AE8004F949D /* UIView+Styles.swift */; };
+		D8492D0F28266D65004F949D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D8492D0D28266D65004F949D /* Localizable.strings */; };
+		D8492D1128267895004F949D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D1028267895004F949D /* Theme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,15 +33,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C2B7BAF4835F328448C53A8 /* Pods-NimbleSurvey.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NimbleSurvey.release.xcconfig"; path = "Target Support Files/Pods-NimbleSurvey/Pods-NimbleSurvey.release.xcconfig"; sourceTree = "<group>"; };
+		3B5AFC3DC2F193FAB4592455 /* Pods-NimbleSurvey.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NimbleSurvey.debug.xcconfig"; path = "Target Support Files/Pods-NimbleSurvey/Pods-NimbleSurvey.debug.xcconfig"; sourceTree = "<group>"; };
+		4AA7E6E9C33C613EA139FEB6 /* Pods_NimbleSurveyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NimbleSurveyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AACE4F7D8E7C339C3B0950F /* Pods-NimbleSurveyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NimbleSurveyTests.debug.xcconfig"; path = "Target Support Files/Pods-NimbleSurveyTests/Pods-NimbleSurveyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		751826C3CE8924153C581A39 /* Pods_NimbleSurvey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NimbleSurvey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		84F9FB7665BE5EF6061D9AD8 /* Pods-NimbleSurveyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NimbleSurveyTests.release.xcconfig"; path = "Target Support Files/Pods-NimbleSurveyTests/Pods-NimbleSurveyTests.release.xcconfig"; sourceTree = "<group>"; };
 		D8492CC02825E610004F949D /* NimbleSurvey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NimbleSurvey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8492CC32825E610004F949D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D8492CC72825E610004F949D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		D8492CCA2825E610004F949D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D8492CCC2825E611004F949D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D8492CCF2825E611004F949D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D8492CD12825E611004F949D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8492CD62825E611004F949D /* NimbleSurveyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NimbleSurveyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8492CDA2825E611004F949D /* NimbleSurveyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleSurveyTests.swift; sourceTree = "<group>"; };
+		D8492CFA28260ED7004F949D /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		D8492CFD28260F49004F949D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D8492D01282612FA004F949D /* Applicable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Applicable.swift; sourceTree = "<group>"; };
+		D8492D04282628F5004F949D /* LinearGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradientView.swift; sourceTree = "<group>"; };
+		D8492D0628262AE8004F949D /* UIView+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Styles.swift"; sourceTree = "<group>"; };
+		D8492D0E28266D65004F949D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D8492D1028267895004F949D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8FAD71E23805220151CCA7D /* Pods_NimbleSurvey.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0917C67ABD36954AC0133D51 /* Pods_NimbleSurveyTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +81,8 @@
 				D8492CC22825E610004F949D /* NimbleSurvey */,
 				D8492CD92825E611004F949D /* NimbleSurveyTests */,
 				D8492CC12825E610004F949D /* Products */,
+				F27DE7177D283296507254F2 /* Pods */,
+				FFC08922E1F0DA11C335079A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,12 +98,12 @@
 		D8492CC22825E610004F949D /* NimbleSurvey */ = {
 			isa = PBXGroup;
 			children = (
-				D8492CC32825E610004F949D /* AppDelegate.swift */,
-				D8492CC72825E610004F949D /* ViewController.swift */,
-				D8492CC92825E610004F949D /* Main.storyboard */,
-				D8492CCC2825E611004F949D /* Assets.xcassets */,
-				D8492CCE2825E611004F949D /* LaunchScreen.storyboard */,
-				D8492CD12825E611004F949D /* Info.plist */,
+				D8492CF928260E0A004F949D /* App */,
+				D8492CFF28260F51004F949D /* Login */,
+				D8492D122826789C004F949D /* Theme */,
+				D8492D03282612FE004F949D /* Common */,
+				D8492CF628260D70004F949D /* Generated */,
+				D8492CFC28260EEF004F949D /* Resources */,
 			);
 			path = NimbleSurvey;
 			sourceTree = "<group>";
@@ -94,6 +116,79 @@
 			path = NimbleSurveyTests;
 			sourceTree = "<group>";
 		};
+		D8492CF628260D70004F949D /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				D8492CFA28260ED7004F949D /* R.generated.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		D8492CF928260E0A004F949D /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D8492CC32825E610004F949D /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D8492CFC28260EEF004F949D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D8492D0D28266D65004F949D /* Localizable.strings */,
+				D8492CCC2825E611004F949D /* Assets.xcassets */,
+				D8492CCE2825E611004F949D /* LaunchScreen.storyboard */,
+				D8492CD12825E611004F949D /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D8492CFF28260F51004F949D /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D8492CFD28260F49004F949D /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		D8492D03282612FE004F949D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D8492D01282612FA004F949D /* Applicable.swift */,
+				D8492D04282628F5004F949D /* LinearGradientView.swift */,
+				D8492D0628262AE8004F949D /* UIView+Styles.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		D8492D122826789C004F949D /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				D8492D1028267895004F949D /* Theme.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		F27DE7177D283296507254F2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3B5AFC3DC2F193FAB4592455 /* Pods-NimbleSurvey.debug.xcconfig */,
+				2C2B7BAF4835F328448C53A8 /* Pods-NimbleSurvey.release.xcconfig */,
+				5AACE4F7D8E7C339C3B0950F /* Pods-NimbleSurveyTests.debug.xcconfig */,
+				84F9FB7665BE5EF6061D9AD8 /* Pods-NimbleSurveyTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		FFC08922E1F0DA11C335079A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				751826C3CE8924153C581A39 /* Pods_NimbleSurvey.framework */,
+				4AA7E6E9C33C613EA139FEB6 /* Pods_NimbleSurveyTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -101,9 +196,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D8492CEA2825E611004F949D /* Build configuration list for PBXNativeTarget "NimbleSurvey" */;
 			buildPhases = (
+				F8E4F23B8A1382BC44460B45 /* [CP] Check Pods Manifest.lock */,
+				D8492CF328260D27004F949D /* R.swift */,
 				D8492CBC2825E610004F949D /* Sources */,
+				D8492D00282610F8004F949D /* SwiftLint */,
 				D8492CBD2825E610004F949D /* Frameworks */,
 				D8492CBE2825E610004F949D /* Resources */,
+				EBBF04FD3F8444BFB117B535 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -118,6 +217,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D8492CED2825E611004F949D /* Build configuration list for PBXNativeTarget "NimbleSurveyTests" */;
 			buildPhases = (
+				38518D4FA0F4AD470BC7DBA3 /* [CP] Check Pods Manifest.lock */,
 				D8492CD22825E611004F949D /* Sources */,
 				D8492CD32825E611004F949D /* Frameworks */,
 				D8492CD42825E611004F949D /* Resources */,
@@ -176,8 +276,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8492CD02825E611004F949D /* LaunchScreen.storyboard in Resources */,
+				D8492D0F28266D65004F949D /* Localizable.strings in Resources */,
 				D8492CCD2825E611004F949D /* Assets.xcassets in Resources */,
-				D8492CCB2825E610004F949D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,13 +290,119 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		38518D4FA0F4AD470BC7DBA3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NimbleSurveyTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D8492CF328260D27004F949D /* R.swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = R.swift;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
+		};
+		D8492D00282610F8004F949D /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		EBBF04FD3F8444BFB117B535 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NimbleSurvey/Pods-NimbleSurvey-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NimbleSurvey/Pods-NimbleSurvey-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NimbleSurvey/Pods-NimbleSurvey-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8E4F23B8A1382BC44460B45 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NimbleSurvey-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D8492CBC2825E610004F949D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8492CC82825E610004F949D /* ViewController.swift in Sources */,
+				D8492D02282612FA004F949D /* Applicable.swift in Sources */,
+				D8492CFE28260F49004F949D /* LoginViewController.swift in Sources */,
 				D8492CC42825E610004F949D /* AppDelegate.swift in Sources */,
+				D8492CFB28260ED7004F949D /* R.generated.swift in Sources */,
+				D8492D0728262AE8004F949D /* UIView+Styles.swift in Sources */,
+				D8492D05282628F5004F949D /* LinearGradientView.swift in Sources */,
+				D8492D1128267895004F949D /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,20 +425,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D8492CC92825E610004F949D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D8492CCA2825E610004F949D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		D8492CCE2825E611004F949D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				D8492CCF2825E611004F949D /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D8492D0D28266D65004F949D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D8492D0E28266D65004F949D /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -354,6 +560,7 @@
 		};
 		D8492CEB2825E611004F949D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B5AFC3DC2F193FAB4592455 /* Pods-NimbleSurvey.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -361,10 +568,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GYPH974N94;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NimbleSurvey/Info.plist;
+				INFOPLIST_FILE = NimbleSurvey/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -383,6 +589,7 @@
 		};
 		D8492CEC2825E611004F949D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C2B7BAF4835F328448C53A8 /* Pods-NimbleSurvey.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -390,10 +597,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GYPH974N94;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NimbleSurvey/Info.plist;
+				INFOPLIST_FILE = NimbleSurvey/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -412,6 +618,7 @@
 		};
 		D8492CEE2825E611004F949D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5AACE4F7D8E7C339C3B0950F /* Pods-NimbleSurveyTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -432,6 +639,7 @@
 		};
 		D8492CEF2825E611004F949D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84F9FB7665BE5EF6061D9AD8 /* Pods-NimbleSurveyTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
