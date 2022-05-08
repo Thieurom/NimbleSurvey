@@ -9,6 +9,11 @@ excluded:
 analyzer_rules:
   - unused_declaration
   - unused_import
+
+disabled_rules:
+  - todo
+  - type_name
+
 opt_in_rules:
   - anyobject_protocol
   - array_init
@@ -84,7 +89,3 @@ line_length:
 
 trailing_whitespace:
   ignores_empty_lines: true
-implicit_return:
-  included:
-    - closure
-    - getter

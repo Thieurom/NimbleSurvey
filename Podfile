@@ -5,6 +5,14 @@ inhibit_all_warnings!
 target 'NimbleSurvey' do
   # UI
   pod 'SnapKit'
+  
+  # Network
+  pod 'Alamofire'
+  pod 'RxAlamofire'
+
+  # Reactive
+  pod 'RxSwift', '6.5.0'
+  pod 'RxCocoa', '6.5.0'
 
   # Tools
   pod 'R.swift'
@@ -14,6 +22,9 @@ target 'NimbleSurvey' do
 
   target 'NimbleSurveyTests' do
     inherit! :search_paths
+
+    pod 'RxBlocking', '6.5.0'
+    pod 'RxTest', '6.5.0'
   end
 end
 
