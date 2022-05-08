@@ -12,7 +12,6 @@
 		D8492CC42825E610004F949D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492CC32825E610004F949D /* AppDelegate.swift */; };
 		D8492CCD2825E611004F949D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8492CCC2825E611004F949D /* Assets.xcassets */; };
 		D8492CD02825E611004F949D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8492CCE2825E611004F949D /* LaunchScreen.storyboard */; };
-		D8492CDB2825E611004F949D /* NimbleSurveyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492CDA2825E611004F949D /* NimbleSurveyTests.swift */; };
 		D8492CFB28260ED7004F949D /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492CFA28260ED7004F949D /* R.generated.swift */; };
 		D8492CFE28260F49004F949D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492CFD28260F49004F949D /* LoginViewController.swift */; };
 		D8492D02282612FA004F949D /* Applicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D01282612FA004F949D /* Applicable.swift */; };
@@ -20,6 +19,25 @@
 		D8492D0728262AE8004F949D /* UIView+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D0628262AE8004F949D /* UIView+Styles.swift */; };
 		D8492D0F28266D65004F949D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D8492D0D28266D65004F949D /* Localizable.strings */; };
 		D8492D1128267895004F949D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D1028267895004F949D /* Theme.swift */; };
+		D8492D142827428D004F949D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D132827428D004F949D /* LoginViewModel.swift */; };
+		D8492D162827CC94004F949D /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D152827CC94004F949D /* AuthenticationManager.swift */; };
+		D8492D1828281A00004F949D /* NetworkAPIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D1728281A00004F949D /* NetworkAPIProtocol.swift */; };
+		D8492D1B28281E24004F949D /* BaseNetworkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D1A28281E24004F949D /* BaseNetworkAPI.swift */; };
+		D8492D1D282825F8004F949D /* AuthenticationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D1C282825F8004F949D /* AuthenticationProtocol.swift */; };
+		D8492D2328289017004F949D /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D2228289017004F949D /* Secrets.swift */; };
+		D8492D25282890E0004F949D /* Secrets.swift.example in Resources */ = {isa = PBXBuildFile; fileRef = D8492D24282890E0004F949D /* Secrets.swift.example */; };
+		D8492D2728295717004F949D /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D2628295717004F949D /* TargetType.swift */; };
+		D8492D2928295850004F949D /* Observable+decode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D2828295850004F949D /* Observable+decode.swift */; };
+		D8492D2E28295C55004F949D /* AuthenticationAPIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D2D28295C55004F949D /* AuthenticationAPIProtocol.swift */; };
+		D8492D3028295C7F004F949D /* AuthenticationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D2F28295C7F004F949D /* AuthenticationAPI.swift */; };
+		D8492D3228295E70004F949D /* AuthenticationTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D3128295E70004F949D /* AuthenticationTargetType.swift */; };
+		D8492D34282964A7004F949D /* AuthenticationAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D33282964A7004F949D /* AuthenticationAPITests.swift */; };
+		D8492D3628296536004F949D /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D3528296536004F949D /* MockURLProtocol.swift */; };
+		D8492D3928296FD3004F949D /* AuthenticationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D3828296FD3004F949D /* AuthenticationManagerTests.swift */; };
+		D8492D3C2829701A004F949D /* MockAuthenticationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D3B2829701A004F949D /* MockAuthenticationAPI.swift */; };
+		D8492D3E282973F5004F949D /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D3D282973F5004F949D /* LoginViewModelTests.swift */; };
+		D8492D41282980E8004F949D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D40282980E8004F949D /* main.swift */; };
+		D8492D4328298463004F949D /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D4228298463004F949D /* ViewModelType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +63,6 @@
 		D8492CCF2825E611004F949D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D8492CD12825E611004F949D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8492CD62825E611004F949D /* NimbleSurveyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NimbleSurveyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8492CDA2825E611004F949D /* NimbleSurveyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleSurveyTests.swift; sourceTree = "<group>"; };
 		D8492CFA28260ED7004F949D /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		D8492CFD28260F49004F949D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D8492D01282612FA004F949D /* Applicable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Applicable.swift; sourceTree = "<group>"; };
@@ -53,6 +70,25 @@
 		D8492D0628262AE8004F949D /* UIView+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Styles.swift"; sourceTree = "<group>"; };
 		D8492D0E28266D65004F949D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D8492D1028267895004F949D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		D8492D132827428D004F949D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		D8492D152827CC94004F949D /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		D8492D1728281A00004F949D /* NetworkAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAPIProtocol.swift; sourceTree = "<group>"; };
+		D8492D1A28281E24004F949D /* BaseNetworkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNetworkAPI.swift; sourceTree = "<group>"; };
+		D8492D1C282825F8004F949D /* AuthenticationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationProtocol.swift; sourceTree = "<group>"; };
+		D8492D2228289017004F949D /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		D8492D24282890E0004F949D /* Secrets.swift.example */ = {isa = PBXFileReference; explicitFileType = text; path = Secrets.swift.example; sourceTree = "<group>"; };
+		D8492D2628295717004F949D /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
+		D8492D2828295850004F949D /* Observable+decode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+decode.swift"; sourceTree = "<group>"; };
+		D8492D2D28295C55004F949D /* AuthenticationAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationAPIProtocol.swift; sourceTree = "<group>"; };
+		D8492D2F28295C7F004F949D /* AuthenticationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationAPI.swift; sourceTree = "<group>"; };
+		D8492D3128295E70004F949D /* AuthenticationTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTargetType.swift; sourceTree = "<group>"; };
+		D8492D33282964A7004F949D /* AuthenticationAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationAPITests.swift; sourceTree = "<group>"; };
+		D8492D3528296536004F949D /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		D8492D3828296FD3004F949D /* AuthenticationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManagerTests.swift; sourceTree = "<group>"; };
+		D8492D3B2829701A004F949D /* MockAuthenticationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthenticationAPI.swift; sourceTree = "<group>"; };
+		D8492D3D282973F5004F949D /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
+		D8492D40282980E8004F949D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		D8492D4228298463004F949D /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,12 +134,16 @@
 		D8492CC22825E610004F949D /* NimbleSurvey */ = {
 			isa = PBXGroup;
 			children = (
+				D8492D40282980E8004F949D /* main.swift */,
 				D8492CF928260E0A004F949D /* App */,
 				D8492CFF28260F51004F949D /* Login */,
+				D8492D1E28282616004F949D /* Authentication */,
+				D8492D1928281A03004F949D /* Network */,
 				D8492D122826789C004F949D /* Theme */,
 				D8492D03282612FE004F949D /* Common */,
 				D8492CF628260D70004F949D /* Generated */,
 				D8492CFC28260EEF004F949D /* Resources */,
+				D8492D2128288E50004F949D /* Secrets */,
 			);
 			path = NimbleSurvey;
 			sourceTree = "<group>";
@@ -111,7 +151,9 @@
 		D8492CD92825E611004F949D /* NimbleSurveyTests */ = {
 			isa = PBXGroup;
 			children = (
-				D8492CDA2825E611004F949D /* NimbleSurveyTests.swift */,
+				D8492D3F282973FA004F949D /* Login */,
+				D8492D3728296F5E004F949D /* AuthenticationAPI */,
+				D8492D3A28296FDA004F949D /* AuthenticationManager */,
 			);
 			path = NimbleSurveyTests;
 			sourceTree = "<group>";
@@ -147,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				D8492CFD28260F49004F949D /* LoginViewController.swift */,
+				D8492D132827428D004F949D /* LoginViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -157,6 +200,7 @@
 				D8492D01282612FA004F949D /* Applicable.swift */,
 				D8492D04282628F5004F949D /* LinearGradientView.swift */,
 				D8492D0628262AE8004F949D /* UIView+Styles.swift */,
+				D8492D4228298463004F949D /* ViewModelType.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -167,6 +211,72 @@
 				D8492D1028267895004F949D /* Theme.swift */,
 			);
 			path = Theme;
+			sourceTree = "<group>";
+		};
+		D8492D1928281A03004F949D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				D8492D2628295717004F949D /* TargetType.swift */,
+				D8492D1728281A00004F949D /* NetworkAPIProtocol.swift */,
+				D8492D1A28281E24004F949D /* BaseNetworkAPI.swift */,
+				D8492D2828295850004F949D /* Observable+decode.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		D8492D1E28282616004F949D /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				D8492D1C282825F8004F949D /* AuthenticationProtocol.swift */,
+				D8492D152827CC94004F949D /* AuthenticationManager.swift */,
+				D8492D2A28295C2D004F949D /* AuthenticationAPI */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		D8492D2128288E50004F949D /* Secrets */ = {
+			isa = PBXGroup;
+			children = (
+				D8492D2228289017004F949D /* Secrets.swift */,
+				D8492D24282890E0004F949D /* Secrets.swift.example */,
+			);
+			path = Secrets;
+			sourceTree = "<group>";
+		};
+		D8492D2A28295C2D004F949D /* AuthenticationAPI */ = {
+			isa = PBXGroup;
+			children = (
+				D8492D2D28295C55004F949D /* AuthenticationAPIProtocol.swift */,
+				D8492D2F28295C7F004F949D /* AuthenticationAPI.swift */,
+				D8492D3128295E70004F949D /* AuthenticationTargetType.swift */,
+			);
+			path = AuthenticationAPI;
+			sourceTree = "<group>";
+		};
+		D8492D3728296F5E004F949D /* AuthenticationAPI */ = {
+			isa = PBXGroup;
+			children = (
+				D8492D33282964A7004F949D /* AuthenticationAPITests.swift */,
+				D8492D3528296536004F949D /* MockURLProtocol.swift */,
+			);
+			path = AuthenticationAPI;
+			sourceTree = "<group>";
+		};
+		D8492D3A28296FDA004F949D /* AuthenticationManager */ = {
+			isa = PBXGroup;
+			children = (
+				D8492D3828296FD3004F949D /* AuthenticationManagerTests.swift */,
+				D8492D3B2829701A004F949D /* MockAuthenticationAPI.swift */,
+			);
+			path = AuthenticationManager;
+			sourceTree = "<group>";
+		};
+		D8492D3F282973FA004F949D /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D8492D3D282973F5004F949D /* LoginViewModelTests.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		F27DE7177D283296507254F2 /* Pods */ = {
@@ -221,6 +331,7 @@
 				D8492CD22825E611004F949D /* Sources */,
 				D8492CD32825E611004F949D /* Frameworks */,
 				D8492CD42825E611004F949D /* Resources */,
+				E8C3D2E0DF9C5A0CCCA2AF54 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -247,6 +358,7 @@
 					};
 					D8492CD52825E611004F949D = {
 						CreatedOnToolsVersion = 13.3.1;
+						LastSwiftMigration = 1330;
 						TestTargetID = D8492CBF2825E610004F949D;
 					};
 				};
@@ -276,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8492CD02825E611004F949D /* LaunchScreen.storyboard in Resources */,
+				D8492D25282890E0004F949D /* Secrets.swift.example in Resources */,
 				D8492D0F28266D65004F949D /* Localizable.strings in Resources */,
 				D8492CCD2825E611004F949D /* Assets.xcassets in Resources */,
 			);
@@ -350,6 +463,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
+		E8C3D2E0DF9C5A0CCCA2AF54 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NimbleSurveyTests/Pods-NimbleSurveyTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NimbleSurveyTests/Pods-NimbleSurveyTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NimbleSurveyTests/Pods-NimbleSurveyTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EBBF04FD3F8444BFB117B535 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -397,12 +527,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8492D02282612FA004F949D /* Applicable.swift in Sources */,
+				D8492D1D282825F8004F949D /* AuthenticationProtocol.swift in Sources */,
+				D8492D162827CC94004F949D /* AuthenticationManager.swift in Sources */,
 				D8492CFE28260F49004F949D /* LoginViewController.swift in Sources */,
+				D8492D1828281A00004F949D /* NetworkAPIProtocol.swift in Sources */,
 				D8492CC42825E610004F949D /* AppDelegate.swift in Sources */,
+				D8492D2728295717004F949D /* TargetType.swift in Sources */,
 				D8492CFB28260ED7004F949D /* R.generated.swift in Sources */,
+				D8492D4328298463004F949D /* ViewModelType.swift in Sources */,
+				D8492D2E28295C55004F949D /* AuthenticationAPIProtocol.swift in Sources */,
+				D8492D1B28281E24004F949D /* BaseNetworkAPI.swift in Sources */,
+				D8492D2328289017004F949D /* Secrets.swift in Sources */,
+				D8492D2928295850004F949D /* Observable+decode.swift in Sources */,
+				D8492D142827428D004F949D /* LoginViewModel.swift in Sources */,
+				D8492D3028295C7F004F949D /* AuthenticationAPI.swift in Sources */,
 				D8492D0728262AE8004F949D /* UIView+Styles.swift in Sources */,
+				D8492D41282980E8004F949D /* main.swift in Sources */,
 				D8492D05282628F5004F949D /* LinearGradientView.swift in Sources */,
 				D8492D1128267895004F949D /* Theme.swift in Sources */,
+				D8492D3228295E70004F949D /* AuthenticationTargetType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,7 +553,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8492CDB2825E611004F949D /* NimbleSurveyTests.swift in Sources */,
+				D8492D3E282973F5004F949D /* LoginViewModelTests.swift in Sources */,
+				D8492D3928296FD3004F949D /* AuthenticationManagerTests.swift in Sources */,
+				D8492D34282964A7004F949D /* AuthenticationAPITests.swift in Sources */,
+				D8492D3C2829701A004F949D /* MockAuthenticationAPI.swift in Sources */,
+				D8492D3628296536004F949D /* MockURLProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -622,15 +769,22 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GYPH974N94;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doanlethieu.NimbleSurveyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NimbleSurvey.app/NimbleSurvey";
@@ -643,11 +797,17 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GYPH974N94;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doanlethieu.NimbleSurveyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

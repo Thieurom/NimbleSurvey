@@ -5,6 +5,8 @@
 //  Created by Doan Le Thieu on 07/05/2022.
 //
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import UIKit
 
@@ -30,17 +32,18 @@ class LoginViewController: UIViewController {
     }
 
     lazy var forgotPasswordButton = UIButton().apply {
-        $0.setTitle("Forgot?", for: .normal)
+        $0.setTitle(R.string.localizable.login_forgot_password(), for: .normal)
         $0.titleLabel?.font = Theme.Font.small
         $0.setTitleColor(.white.withAlphaComponent(0.5), for: .normal)
         $0.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
     }
 
-    lazy var loginButton = UIButton().apply {
+    lazy var loginButton = UIButton(type: .system).apply {
         $0.backgroundColor = .white
         $0.setTitle(R.string.localizable.login_login_button(), for: .normal)
         $0.titleLabel?.font = Theme.Font.title
         $0.setTitleColor(.black, for: .normal)
+        $0.setTitleColor(.gray, for: .disabled)
         $0.roundingCorner(10)
     }
 
@@ -80,6 +83,21 @@ class LoginViewController: UIViewController {
 
     private var formCenterYConstraint: Constraint?
     private var formBottomConstraint: Constraint?
+    private let disposeBag = DisposeBag()
+
+    // MAKR: - Initialization
+
+    private let viewModel: LoginViewModel
+
+    init(viewModel: LoginViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - View lifecycle
 
@@ -89,6 +107,8 @@ class LoginViewController: UIViewController {
         setupViews()
         observeKeyboard()
         animateViewsIn()
+
+        bindViewModel()
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -181,8 +201,9 @@ extension LoginViewController {
 
 extension LoginViewController {
     private func observeKeyboard() {
-        // swiftlint:disable line_length
+        // swiftlint:disable:next line_length
         NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.handleKeyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        // swiftlint:disable:next line_length
         NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.handleKeyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
@@ -218,6 +239,41 @@ extension LoginViewController {
         UIView.animate(withDuration: 0.15) {
             self.view.layoutIfNeeded()
         }
+    }
+}
+
+// MARK: - Bind view model
+
+extension LoginViewController {
+    private func bindViewModel() {
+        let input = LoginViewModel.Input(
+            email: emailTextField.rx.text.compactMap { $0 },
+            password: passwordTextField.rx.text.compactMap { $0 },
+            loginTrigger: loginButton.rx.tap.asObservable()
+        )
+
+        let output = viewModel.transform(input: input)
+
+        output.loginEnabled
+            .drive(loginButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+
+        output.loginEnabled
+            .drive(loginButton.rx.isUserInteractionEnabled)
+            .disposed(by: disposeBag)
+
+        output.loginResult
+            .drive(onNext: { result in
+                switch result {
+                case .success:
+                    // TODO: Go to HOME
+                    print("Success")
+                case.failure(let error):
+                    // TODO: Show toast
+                    print("Fail: \(error)")
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 

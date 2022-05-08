@@ -2,3 +2,6 @@
 xcuserdata/
 Pods/
 *.generated.swift
+.env
+.private
+NimbleSurvey/Secrets/Secrets.swift
