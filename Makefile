@@ -2,7 +2,7 @@ ifeq (.private, $(wildcard .private))
     PRIVATE = 1
 endif
 
-bootstrap: setups
+bootstrap: setups secrets
 
 setups:
 	bundle install
