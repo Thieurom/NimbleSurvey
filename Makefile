@@ -2,7 +2,11 @@ ifeq (.private, $(wildcard .private))
     PRIVATE = 1
 endif
 
-bootstrap: secrets
+bootstrap: setups
+
+setups:
+	bundle install
+	bundle exec pod install
 
 secrets:
 ifdef PRIVATE
