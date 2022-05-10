@@ -1,0 +1,27 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Code validation"
+  lane :lint do
+    swiftlint(
+      mode: :lint,
+      output_file: "fastlane/swiftlint.result.html",
+      config_file: ".swiftlint.yml",
+      raise_if_swiftlint_error: true,
+      ignore_exit_status: true
+    )
+  end
+
+  desc "Run tests"
+  lane :test do
+    scan(
+      scheme: "NimbleSurvey",
+      devices: ["iPhone 8", "iPhone 12"],
+      only_testing: ["NimbleSurveyTests"],
+      clean: true,
+      output_types: "html",
+      xcargs: "CI=true"
+    )
+  end
+end
+

@@ -5,3 +5,11 @@ Pods/
 .env
 .private
 NimbleSurvey/Secrets/Secrets.swift
+
+# fastlane
+fastlane/README.md
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+swiftlint.result.html
