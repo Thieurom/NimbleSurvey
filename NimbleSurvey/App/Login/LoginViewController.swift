@@ -85,7 +85,7 @@ class LoginViewController: UIViewController {
     private var formBottomConstraint: Constraint?
     private let disposeBag = DisposeBag()
 
-    // MAKR: - Initialization
+    // MARK: - Initialization
 
     private let viewModel: LoginViewModel
 
@@ -126,8 +126,13 @@ extension LoginViewController {
 
         logoContainerView.addSubview(logoImageView)
 
-        [backgroundImageView, overlayView, blurView, logoContainerView, formStackView]
-            .forEach(view.addSubview)
+        view.addSubviews(
+            backgroundImageView,
+            overlayView,
+            blurView,
+            logoContainerView,
+            formStackView
+        )
 
         // Constraint
         [backgroundImageView, overlayView, blurView]

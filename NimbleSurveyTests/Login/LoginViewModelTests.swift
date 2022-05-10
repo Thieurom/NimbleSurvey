@@ -17,7 +17,7 @@ class LoginViewModelTests: XCTestCase {
     private var loginViewModel: LoginViewModel!
 
     // Mock dependencies
-    private var mockAuthenticationManager: AuthenticationProtocol!
+    private var mockNimbleSurveyClient: NimbleSurveyClientType!
 
     private var scheduler: TestScheduler!
     private var disposeBag: DisposeBag!
@@ -31,15 +31,15 @@ class LoginViewModelTests: XCTestCase {
 
     override func tearDown() {
         loginViewModel = nil
-        mockAuthenticationManager = nil
+        mockNimbleSurveyClient = nil
         scheduler = nil
 
         super.tearDown()
     }
 
     func testLoginDisableInitially() throws {
-        mockAuthenticationManager = MockAuthenticationManager()
-        loginViewModel = LoginViewModel(authenticationManager: mockAuthenticationManager)
+        mockNimbleSurveyClient = MockNimbleSurveyClient()
+        loginViewModel = LoginViewModel(nimbleSurveyClient: mockNimbleSurveyClient)
 
         let email = PublishSubject<String>()
         let password = PublishSubject<String>()
@@ -54,11 +54,5 @@ class LoginViewModelTests: XCTestCase {
         let output = loginViewModel.transform(input: input)
 
         XCTAssertFalse(try output.loginEnabled.toBlocking().first()!)
-    }
-}
-
-private class MockAuthenticationManager: AuthenticationProtocol {
-    func login(email: String, password: String) -> Completable {
-        return .empty()
     }
 }

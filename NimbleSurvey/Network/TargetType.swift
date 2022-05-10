@@ -13,16 +13,12 @@ public protocol TargetType {
     var baseURL: URL { get }
     var path: String { get }
     var method: HTTPMethod { get }
+    var headers: HTTPHeaders? { get }
     var parameters: Parameters? { get }
     var encoding: ParameterEncoding { get }
 }
 
 extension TargetType {
-    var baseURL: URL {
-        // TODO: Move to config
-        URL(string: "https://survey-api.nimblehq.co/api/v1")!
-    }
-
     var url: URL {
         if path.isEmpty {
             return baseURL

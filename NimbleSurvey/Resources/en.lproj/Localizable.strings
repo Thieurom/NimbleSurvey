@@ -4,3 +4,4 @@
 "login_forgot_password" = "Forgot?";
 "login_fail_unknown" = "Unknown error";
 "login_fail_authen_fail" = "Authentication Failed";
+"home_today" = "Today";

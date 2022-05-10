@@ -13,6 +13,9 @@ analyzer_rules:
 disabled_rules:
   - todo
   - type_name
+  - line_length
+  - function_body_length
+  - type_body_length
 
 opt_in_rules:
   - anyobject_protocol
@@ -82,10 +85,6 @@ opt_in_rules:
   - vertical_parameter_alignment_on_call
   - xct_specific_matcher
   - yoda_condition
-
-line_length:
-  ignores_function_declarations: true
-  ignores_comments: true
 
 trailing_whitespace:
   ignores_empty_lines: true

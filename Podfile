@@ -5,6 +5,10 @@ inhibit_all_warnings!
 target 'NimbleSurvey' do
   # UI
   pod 'SnapKit'
+  pod 'RxDataSources', '~> 5.0'
+  pod 'Kingfisher'
+  pod 'SkeletonView'
+  pod 'CHIPageControl/Aji'
   
   # Network
   pod 'Alamofire'

@@ -1,5 +1,8 @@
 PODS:
   - Alamofire (5.6.1)
+  - CHIPageControl/Aji (0.2)
+  - Differentiator (5.0.0)
+  - Kingfisher (6.3.1)
   - R.swift (6.1.0):
     - R.swift.Library (~> 5.3.0)
   - R.swift.Library (5.3.0)
@@ -13,52 +16,71 @@ PODS:
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
     - RxSwift (= 6.5.0)
+  - RxDataSources (5.0.0):
+    - Differentiator (~> 5.0)
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
   - RxRelay (6.5.0):
     - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
   - RxTest (6.5.0):
     - RxSwift (= 6.5.0)
+  - SkeletonView (1.29.2)
   - SnapKit (5.6.0)
   - SwiftLint (0.47.1)
 
 DEPENDENCIES:
   - Alamofire
+  - CHIPageControl/Aji
+  - Kingfisher
   - R.swift
   - RxAlamofire
   - RxBlocking (= 6.5.0)
   - RxCocoa (= 6.5.0)
+  - RxDataSources (~> 5.0)
   - RxSwift (= 6.5.0)
   - RxTest (= 6.5.0)
+  - SkeletonView
   - SnapKit
   - SwiftLint
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - CHIPageControl
+    - Differentiator
+    - Kingfisher
     - R.swift
     - R.swift.Library
     - RxAlamofire
     - RxBlocking
     - RxCocoa
+    - RxDataSources
     - RxRelay
     - RxSwift
     - RxTest
+    - SkeletonView
     - SnapKit
     - SwiftLint
 
 SPEC CHECKSUMS:
   Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
+  CHIPageControl: a787bf7205c9b7e7fbfc412be36c5e8636b68f86
+  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
+  Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   R.swift: ec98ff71c4ab2f6fd01dd077e5afd15e63a4834c
   R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
   RxAlamofire: beb75a1c452d0de225651db4903f5d29d034a620
   RxBlocking: 04b5fd28bb5ea49f7d64b80db8bbfe50d9cc1c7d
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   RxTest: eb2d23adefc5a5ebf5779c7792fa3edfe6ebcc17
+  SkeletonView: 915a80ecc2b6421ab7ac0f0212321c0cc1406472
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
 
-PODFILE CHECKSUM: 8c37cae2ca511c67032d2350e08a258fec560e2b
+PODFILE CHECKSUM: bfe82c9391597cac92aa8c57156e1093eb5d765f
 
 COCOAPODS: 1.11.3
