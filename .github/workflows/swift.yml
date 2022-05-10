@@ -1,0 +1,26 @@
+name: Swift
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  swiftlint:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Bootstrap
+      run: make bootstrap
+    - name: Run swiftlint
+      run: bundle exec fastlane lint
+
+  test:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Bootstrap
+      run: make bootstrap
+    - name: Build and test
+      run: bundle exec fastlane test
