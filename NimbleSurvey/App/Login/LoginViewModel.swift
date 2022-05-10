@@ -14,6 +14,9 @@ struct LoginError: Error {
 }
 
 class LoginViewModel: ViewModelType {
+
+    // MARK: - Nested types
+
     struct Input {
         let email: Observable<String>
         let password: Observable<String>
@@ -25,10 +28,12 @@ class LoginViewModel: ViewModelType {
         let loginResult: Driver<Result<Bool, LoginError>>
     }
 
-    private let authenticationManager: AuthenticationProtocol
+    // MARK: - Dependencies
 
-    init(authenticationManager: AuthenticationProtocol) {
-        self.authenticationManager = authenticationManager
+    private let nimbleSurveyClient: NimbleSurveyClientType
+
+    init(nimbleSurveyClient: NimbleSurveyClientType) {
+        self.nimbleSurveyClient = nimbleSurveyClient
     }
 
     func transform(input: Input) -> Output {
@@ -49,7 +54,7 @@ class LoginViewModel: ViewModelType {
                     return .error(LoginError(message: R.string.localizable.login_fail_unknown()))
                 }
 
-                return self.authenticationManager.login(email: email, password: password)
+                return self.nimbleSurveyClient.login(email: email, password: password)
                     .andThen(.just(.success(true)))
                     .catch { _ in
                         throw LoginError(message: R.string.localizable.login_fail_authen_fail())

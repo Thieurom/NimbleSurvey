@@ -20,24 +20,34 @@
 		D8492D0F28266D65004F949D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D8492D0D28266D65004F949D /* Localizable.strings */; };
 		D8492D1128267895004F949D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D1028267895004F949D /* Theme.swift */; };
 		D8492D142827428D004F949D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D132827428D004F949D /* LoginViewModel.swift */; };
-		D8492D162827CC94004F949D /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D152827CC94004F949D /* AuthenticationManager.swift */; };
+		D8492D162827CC94004F949D /* NimbleSurveyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D152827CC94004F949D /* NimbleSurveyClient.swift */; };
 		D8492D1828281A00004F949D /* NetworkAPIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D1728281A00004F949D /* NetworkAPIProtocol.swift */; };
 		D8492D1B28281E24004F949D /* BaseNetworkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D1A28281E24004F949D /* BaseNetworkAPI.swift */; };
-		D8492D1D282825F8004F949D /* AuthenticationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D1C282825F8004F949D /* AuthenticationProtocol.swift */; };
+		D8492D1D282825F8004F949D /* NimbleSurveyClientType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D1C282825F8004F949D /* NimbleSurveyClientType.swift */; };
 		D8492D2328289017004F949D /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D2228289017004F949D /* Secrets.swift */; };
 		D8492D25282890E0004F949D /* Secrets.swift.example in Resources */ = {isa = PBXBuildFile; fileRef = D8492D24282890E0004F949D /* Secrets.swift.example */; };
 		D8492D2728295717004F949D /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D2628295717004F949D /* TargetType.swift */; };
 		D8492D2928295850004F949D /* Observable+decode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D2828295850004F949D /* Observable+decode.swift */; };
-		D8492D2E28295C55004F949D /* AuthenticationAPIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D2D28295C55004F949D /* AuthenticationAPIProtocol.swift */; };
-		D8492D3028295C7F004F949D /* AuthenticationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D2F28295C7F004F949D /* AuthenticationAPI.swift */; };
-		D8492D3228295E70004F949D /* AuthenticationTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D3128295E70004F949D /* AuthenticationTargetType.swift */; };
-		D8492D34282964A7004F949D /* AuthenticationAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D33282964A7004F949D /* AuthenticationAPITests.swift */; };
+		D8492D2E28295C55004F949D /* NimbleSurveyAPIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D2D28295C55004F949D /* NimbleSurveyAPIProtocol.swift */; };
+		D8492D3028295C7F004F949D /* NimbleSurveyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D2F28295C7F004F949D /* NimbleSurveyAPI.swift */; };
+		D8492D3228295E70004F949D /* NimbleTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D3128295E70004F949D /* NimbleTargetType.swift */; };
+		D8492D34282964A7004F949D /* NimbleSurveyAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D33282964A7004F949D /* NimbleSurveyAPITests.swift */; };
 		D8492D3628296536004F949D /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D3528296536004F949D /* MockURLProtocol.swift */; };
-		D8492D3928296FD3004F949D /* AuthenticationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D3828296FD3004F949D /* AuthenticationManagerTests.swift */; };
-		D8492D3C2829701A004F949D /* MockAuthenticationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D3B2829701A004F949D /* MockAuthenticationAPI.swift */; };
+		D8492D3928296FD3004F949D /* NimbleSurveyClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D3828296FD3004F949D /* NimbleSurveyClientTests.swift */; };
+		D8492D3C2829701A004F949D /* MockNimbleSurveyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D3B2829701A004F949D /* MockNimbleSurveyAPI.swift */; };
 		D8492D3E282973F5004F949D /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D3D282973F5004F949D /* LoginViewModelTests.swift */; };
 		D8492D41282980E8004F949D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D40282980E8004F949D /* main.swift */; };
 		D8492D4328298463004F949D /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8492D4228298463004F949D /* ViewModelType.swift */; };
+		D8C1A316282AD0F800803A86 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A315282AD0F800803A86 /* HomeViewController.swift */; };
+		D8C1A319282AD1A500803A86 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A318282AD1A500803A86 /* HomeViewModel.swift */; };
+		D8C1A31B282AD37E00803A86 /* Survey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A31A282AD37E00803A86 /* Survey.swift */; };
+		D8C1A31E282AD64C00803A86 /* SurveyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A31D282AD64C00803A86 /* SurveyCell.swift */; };
+		D8C1A320282C05C900803A86 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A31F282C05C900803A86 /* DescriptionView.swift */; };
+		D8C1A322282C071F00803A86 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A321282C071F00803A86 /* HeaderView.swift */; };
+		D8C1A324282C09CF00803A86 /* UIView+addSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A323282C09CF00803A86 /* UIView+addSubviews.swift */; };
+		D8C1A328282C0C9C00803A86 /* PlaceholderSurveyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A327282C0C9C00803A86 /* PlaceholderSurveyCell.swift */; };
+		D8C1A32A282D460800803A86 /* AccessTokenAuthorizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A329282D460800803A86 /* AccessTokenAuthorizable.swift */; };
+		D8C1A32C282D649700803A86 /* MockNimbleSurveyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A32B282D649700803A86 /* MockNimbleSurveyClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,24 +81,34 @@
 		D8492D0E28266D65004F949D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D8492D1028267895004F949D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		D8492D132827428D004F949D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		D8492D152827CC94004F949D /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		D8492D152827CC94004F949D /* NimbleSurveyClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleSurveyClient.swift; sourceTree = "<group>"; };
 		D8492D1728281A00004F949D /* NetworkAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAPIProtocol.swift; sourceTree = "<group>"; };
 		D8492D1A28281E24004F949D /* BaseNetworkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNetworkAPI.swift; sourceTree = "<group>"; };
-		D8492D1C282825F8004F949D /* AuthenticationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationProtocol.swift; sourceTree = "<group>"; };
+		D8492D1C282825F8004F949D /* NimbleSurveyClientType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleSurveyClientType.swift; sourceTree = "<group>"; };
 		D8492D2228289017004F949D /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		D8492D24282890E0004F949D /* Secrets.swift.example */ = {isa = PBXFileReference; explicitFileType = text; path = Secrets.swift.example; sourceTree = "<group>"; };
 		D8492D2628295717004F949D /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		D8492D2828295850004F949D /* Observable+decode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+decode.swift"; sourceTree = "<group>"; };
-		D8492D2D28295C55004F949D /* AuthenticationAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationAPIProtocol.swift; sourceTree = "<group>"; };
-		D8492D2F28295C7F004F949D /* AuthenticationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationAPI.swift; sourceTree = "<group>"; };
-		D8492D3128295E70004F949D /* AuthenticationTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTargetType.swift; sourceTree = "<group>"; };
-		D8492D33282964A7004F949D /* AuthenticationAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationAPITests.swift; sourceTree = "<group>"; };
+		D8492D2D28295C55004F949D /* NimbleSurveyAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleSurveyAPIProtocol.swift; sourceTree = "<group>"; };
+		D8492D2F28295C7F004F949D /* NimbleSurveyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleSurveyAPI.swift; sourceTree = "<group>"; };
+		D8492D3128295E70004F949D /* NimbleTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleTargetType.swift; sourceTree = "<group>"; };
+		D8492D33282964A7004F949D /* NimbleSurveyAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleSurveyAPITests.swift; sourceTree = "<group>"; };
 		D8492D3528296536004F949D /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
-		D8492D3828296FD3004F949D /* AuthenticationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManagerTests.swift; sourceTree = "<group>"; };
-		D8492D3B2829701A004F949D /* MockAuthenticationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthenticationAPI.swift; sourceTree = "<group>"; };
+		D8492D3828296FD3004F949D /* NimbleSurveyClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleSurveyClientTests.swift; sourceTree = "<group>"; };
+		D8492D3B2829701A004F949D /* MockNimbleSurveyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNimbleSurveyAPI.swift; sourceTree = "<group>"; };
 		D8492D3D282973F5004F949D /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		D8492D40282980E8004F949D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D8492D4228298463004F949D /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		D8C1A315282AD0F800803A86 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		D8C1A318282AD1A500803A86 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		D8C1A31A282AD37E00803A86 /* Survey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Survey.swift; sourceTree = "<group>"; };
+		D8C1A31D282AD64C00803A86 /* SurveyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyCell.swift; sourceTree = "<group>"; };
+		D8C1A31F282C05C900803A86 /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
+		D8C1A321282C071F00803A86 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		D8C1A323282C09CF00803A86 /* UIView+addSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addSubviews.swift"; sourceTree = "<group>"; };
+		D8C1A327282C0C9C00803A86 /* PlaceholderSurveyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderSurveyCell.swift; sourceTree = "<group>"; };
+		D8C1A329282D460800803A86 /* AccessTokenAuthorizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenAuthorizable.swift; sourceTree = "<group>"; };
+		D8C1A32B282D649700803A86 /* MockNimbleSurveyClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNimbleSurveyClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,10 +154,9 @@
 		D8492CC22825E610004F949D /* NimbleSurvey */ = {
 			isa = PBXGroup;
 			children = (
-				D8492D40282980E8004F949D /* main.swift */,
 				D8492CF928260E0A004F949D /* App */,
-				D8492CFF28260F51004F949D /* Login */,
-				D8492D1E28282616004F949D /* Authentication */,
+				D8C1A31C282AD39000803A86 /* Models */,
+				D8492D1E28282616004F949D /* NimbleSurveyClient */,
 				D8492D1928281A03004F949D /* Network */,
 				D8492D122826789C004F949D /* Theme */,
 				D8492D03282612FE004F949D /* Common */,
@@ -152,8 +171,8 @@
 			isa = PBXGroup;
 			children = (
 				D8492D3F282973FA004F949D /* Login */,
-				D8492D3728296F5E004F949D /* AuthenticationAPI */,
-				D8492D3A28296FDA004F949D /* AuthenticationManager */,
+				D8492D3728296F5E004F949D /* NimbleSurveyAPI */,
+				D8492D3A28296FDA004F949D /* NimbleSurveyClient */,
 			);
 			path = NimbleSurveyTests;
 			sourceTree = "<group>";
@@ -169,7 +188,10 @@
 		D8492CF928260E0A004F949D /* App */ = {
 			isa = PBXGroup;
 			children = (
+				D8492D40282980E8004F949D /* main.swift */,
 				D8492CC32825E610004F949D /* AppDelegate.swift */,
+				D8492CFF28260F51004F949D /* Login */,
+				D8C1A317282AD0FB00803A86 /* Home */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -200,6 +222,7 @@
 				D8492D01282612FA004F949D /* Applicable.swift */,
 				D8492D04282628F5004F949D /* LinearGradientView.swift */,
 				D8492D0628262AE8004F949D /* UIView+Styles.swift */,
+				D8C1A323282C09CF00803A86 /* UIView+addSubviews.swift */,
 				D8492D4228298463004F949D /* ViewModelType.swift */,
 			);
 			path = Common;
@@ -218,20 +241,21 @@
 			children = (
 				D8492D2628295717004F949D /* TargetType.swift */,
 				D8492D1728281A00004F949D /* NetworkAPIProtocol.swift */,
+				D8C1A329282D460800803A86 /* AccessTokenAuthorizable.swift */,
 				D8492D1A28281E24004F949D /* BaseNetworkAPI.swift */,
 				D8492D2828295850004F949D /* Observable+decode.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
 		};
-		D8492D1E28282616004F949D /* Authentication */ = {
+		D8492D1E28282616004F949D /* NimbleSurveyClient */ = {
 			isa = PBXGroup;
 			children = (
-				D8492D1C282825F8004F949D /* AuthenticationProtocol.swift */,
-				D8492D152827CC94004F949D /* AuthenticationManager.swift */,
-				D8492D2A28295C2D004F949D /* AuthenticationAPI */,
+				D8492D1C282825F8004F949D /* NimbleSurveyClientType.swift */,
+				D8492D152827CC94004F949D /* NimbleSurveyClient.swift */,
+				D8492D2A28295C2D004F949D /* NimbleSurveyAPI */,
 			);
-			path = Authentication;
+			path = NimbleSurveyClient;
 			sourceTree = "<group>";
 		};
 		D8492D2128288E50004F949D /* Secrets */ = {
@@ -243,40 +267,78 @@
 			path = Secrets;
 			sourceTree = "<group>";
 		};
-		D8492D2A28295C2D004F949D /* AuthenticationAPI */ = {
+		D8492D2A28295C2D004F949D /* NimbleSurveyAPI */ = {
 			isa = PBXGroup;
 			children = (
-				D8492D2D28295C55004F949D /* AuthenticationAPIProtocol.swift */,
-				D8492D2F28295C7F004F949D /* AuthenticationAPI.swift */,
-				D8492D3128295E70004F949D /* AuthenticationTargetType.swift */,
+				D8492D2D28295C55004F949D /* NimbleSurveyAPIProtocol.swift */,
+				D8492D2F28295C7F004F949D /* NimbleSurveyAPI.swift */,
+				D8492D3128295E70004F949D /* NimbleTargetType.swift */,
 			);
-			path = AuthenticationAPI;
+			path = NimbleSurveyAPI;
 			sourceTree = "<group>";
 		};
-		D8492D3728296F5E004F949D /* AuthenticationAPI */ = {
+		D8492D3728296F5E004F949D /* NimbleSurveyAPI */ = {
 			isa = PBXGroup;
 			children = (
-				D8492D33282964A7004F949D /* AuthenticationAPITests.swift */,
+				D8492D33282964A7004F949D /* NimbleSurveyAPITests.swift */,
 				D8492D3528296536004F949D /* MockURLProtocol.swift */,
 			);
-			path = AuthenticationAPI;
+			path = NimbleSurveyAPI;
 			sourceTree = "<group>";
 		};
-		D8492D3A28296FDA004F949D /* AuthenticationManager */ = {
+		D8492D3A28296FDA004F949D /* NimbleSurveyClient */ = {
 			isa = PBXGroup;
 			children = (
-				D8492D3828296FD3004F949D /* AuthenticationManagerTests.swift */,
-				D8492D3B2829701A004F949D /* MockAuthenticationAPI.swift */,
+				D8492D3828296FD3004F949D /* NimbleSurveyClientTests.swift */,
+				D8492D3B2829701A004F949D /* MockNimbleSurveyAPI.swift */,
 			);
-			path = AuthenticationManager;
+			path = NimbleSurveyClient;
 			sourceTree = "<group>";
 		};
 		D8492D3F282973FA004F949D /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				D8492D3D282973F5004F949D /* LoginViewModelTests.swift */,
+				D8C1A32B282D649700803A86 /* MockNimbleSurveyClient.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		D8C1A317282AD0FB00803A86 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				D8C1A315282AD0F800803A86 /* HomeViewController.swift */,
+				D8C1A318282AD1A500803A86 /* HomeViewModel.swift */,
+				D8C1A326282C0C4C00803A86 /* Cells */,
+				D8C1A325282C0B9D00803A86 /* CommonViews */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		D8C1A31C282AD39000803A86 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D8C1A31A282AD37E00803A86 /* Survey.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D8C1A325282C0B9D00803A86 /* CommonViews */ = {
+			isa = PBXGroup;
+			children = (
+				D8C1A321282C071F00803A86 /* HeaderView.swift */,
+				D8C1A31F282C05C900803A86 /* DescriptionView.swift */,
+			);
+			path = CommonViews;
+			sourceTree = "<group>";
+		};
+		D8C1A326282C0C4C00803A86 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D8C1A31D282AD64C00803A86 /* SurveyCell.swift */,
+				D8C1A327282C0C9C00803A86 /* PlaceholderSurveyCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		F27DE7177D283296507254F2 /* Pods */ = {
@@ -528,25 +590,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8492D02282612FA004F949D /* Applicable.swift in Sources */,
-				D8492D1D282825F8004F949D /* AuthenticationProtocol.swift in Sources */,
-				D8492D162827CC94004F949D /* AuthenticationManager.swift in Sources */,
+				D8C1A319282AD1A500803A86 /* HomeViewModel.swift in Sources */,
+				D8492D1D282825F8004F949D /* NimbleSurveyClientType.swift in Sources */,
+				D8C1A31B282AD37E00803A86 /* Survey.swift in Sources */,
+				D8492D162827CC94004F949D /* NimbleSurveyClient.swift in Sources */,
 				D8492CFE28260F49004F949D /* LoginViewController.swift in Sources */,
 				D8492D1828281A00004F949D /* NetworkAPIProtocol.swift in Sources */,
+				D8C1A316282AD0F800803A86 /* HomeViewController.swift in Sources */,
 				D8492CC42825E610004F949D /* AppDelegate.swift in Sources */,
+				D8C1A31E282AD64C00803A86 /* SurveyCell.swift in Sources */,
 				D8492D2728295717004F949D /* TargetType.swift in Sources */,
 				D8492CFB28260ED7004F949D /* R.generated.swift in Sources */,
 				D8492D4328298463004F949D /* ViewModelType.swift in Sources */,
-				D8492D2E28295C55004F949D /* AuthenticationAPIProtocol.swift in Sources */,
+				D8492D2E28295C55004F949D /* NimbleSurveyAPIProtocol.swift in Sources */,
+				D8C1A320282C05C900803A86 /* DescriptionView.swift in Sources */,
 				D8492D1B28281E24004F949D /* BaseNetworkAPI.swift in Sources */,
+				D8C1A32A282D460800803A86 /* AccessTokenAuthorizable.swift in Sources */,
 				D8492D2328289017004F949D /* Secrets.swift in Sources */,
 				D8492D2928295850004F949D /* Observable+decode.swift in Sources */,
 				D8492D142827428D004F949D /* LoginViewModel.swift in Sources */,
-				D8492D3028295C7F004F949D /* AuthenticationAPI.swift in Sources */,
+				D8C1A328282C0C9C00803A86 /* PlaceholderSurveyCell.swift in Sources */,
+				D8492D3028295C7F004F949D /* NimbleSurveyAPI.swift in Sources */,
 				D8492D0728262AE8004F949D /* UIView+Styles.swift in Sources */,
+				D8C1A324282C09CF00803A86 /* UIView+addSubviews.swift in Sources */,
 				D8492D41282980E8004F949D /* main.swift in Sources */,
 				D8492D05282628F5004F949D /* LinearGradientView.swift in Sources */,
 				D8492D1128267895004F949D /* Theme.swift in Sources */,
-				D8492D3228295E70004F949D /* AuthenticationTargetType.swift in Sources */,
+				D8492D3228295E70004F949D /* NimbleTargetType.swift in Sources */,
+				D8C1A322282C071F00803A86 /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,9 +626,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8492D3E282973F5004F949D /* LoginViewModelTests.swift in Sources */,
-				D8492D3928296FD3004F949D /* AuthenticationManagerTests.swift in Sources */,
-				D8492D34282964A7004F949D /* AuthenticationAPITests.swift in Sources */,
-				D8492D3C2829701A004F949D /* MockAuthenticationAPI.swift in Sources */,
+				D8492D3928296FD3004F949D /* NimbleSurveyClientTests.swift in Sources */,
+				D8492D34282964A7004F949D /* NimbleSurveyAPITests.swift in Sources */,
+				D8C1A32C282D649700803A86 /* MockNimbleSurveyClient.swift in Sources */,
+				D8492D3C2829701A004F949D /* MockNimbleSurveyAPI.swift in Sources */,
 				D8492D3628296536004F949D /* MockURLProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
