@@ -10,14 +10,14 @@ import Foundation
 import RxSwift
 
 class MockNimbleSurveyAPI: NimbleSurveyAPIProtocol {
-    var loginResult: Result<Credential, NimbleSurveyError>?
-    var refreshTokenResult: Result<Credential, NimbleSurveyError>?
+    var loginResult: Result<Credentials, NimbleSurveyError>?
+    var refreshTokenResult: Result<Credentials, NimbleSurveyError>?
     var surveyListResult: Result<[Survey], NimbleSurveyError>?
 
-    func login(email: String, password: String, clientId: String, clientSecret: String) -> Single<Credential> {
+    func login(email: String, password: String, clientId: String, clientSecret: String) -> Single<Credentials> {
         switch loginResult {
-        case .success(let credential):
-            return .just(credential)
+        case .success(let credentials):
+            return .just(credentials)
         case .failure(let error):
             return .error(error)
         case .none:
@@ -25,10 +25,10 @@ class MockNimbleSurveyAPI: NimbleSurveyAPIProtocol {
         }
     }
 
-    func refreshToken(refreshToken: String, clientId: String, clientSecret: String) -> Single<Credential> {
+    func refreshToken(refreshToken: String, clientId: String, clientSecret: String) -> Single<Credentials> {
         switch refreshTokenResult {
-        case .success(let credential):
-            return .just(credential)
+        case .success(let credentials):
+            return .just(credentials)
         case .failure(let error):
             return .error(error)
         case .none:

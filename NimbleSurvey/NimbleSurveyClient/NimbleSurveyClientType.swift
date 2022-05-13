@@ -10,4 +10,5 @@ import RxSwift
 protocol NimbleSurveyClientType {
     func authenticate(email: String, password: String) -> Completable
     func surveyList(pageNumber: Int, pageSize: Int) -> Single<[Survey]>
+    func hasCredentials() -> Bool
 }

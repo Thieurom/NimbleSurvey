@@ -17,6 +17,7 @@ class NimbleSurveyClientTests: XCTestCase {
 
     // Mock dependencies
     private var mockNimbleSurveyAPI: MockNimbleSurveyAPI!
+    private var mockCredentialsStorage: MockCredentialStorage!
 
     private let email = "john@appleseed.com"
     private let password = "123456"
@@ -26,17 +27,20 @@ class NimbleSurveyClientTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
+        mockNimbleSurveyAPI = MockNimbleSurveyAPI()
+        mockCredentialsStorage = MockCredentialStorage()
+
         nimbleSurveyClient = NimbleSurveyClient(
             clientId: clientId,
-            clientSecret: clientSecret
+            clientSecret: clientSecret,
+            credentialsStorage: mockCredentialsStorage
         )
-
-        mockNimbleSurveyAPI = MockNimbleSurveyAPI()
     }
 
     override func tearDown() {
         nimbleSurveyClient = nil
         mockNimbleSurveyAPI = nil
+        mockCredentialsStorage = nil
 
         super.tearDown()
     }
@@ -61,7 +65,7 @@ class NimbleSurveyClientTests: XCTestCase {
 
     func testAuthenticateSuccess() {
         mockNimbleSurveyAPI.loginResult = .success(
-            Credential(
+            Credentials(
                 accessToken: "at1234",
                 tokenType: "Bearer",
                 refreshToken: "rt5678",
@@ -85,7 +89,101 @@ class NimbleSurveyClientTests: XCTestCase {
 
     // MARK: - Test Survey list
 
-    func testGetSurveyListFail() {
+    func testHasCredentialFalse() {
+        XCTAssertFalse(nimbleSurveyClient.hasCredentials())
+    }
+
+    func testHasCredentialTrue() {
+        mockCredentialsStorage.retrieveResult = Credentials(
+            accessToken: "at1234",
+            tokenType: "Bearer",
+            refreshToken: "rt5678",
+            validUntil: "2022-5-14 01:00:00"
+        )
+
+        XCTAssertTrue(nimbleSurveyClient.hasCredentials())
+    }
+
+    // MARK: - Test Survey list
+
+    func testGetSurveyListFailWhenHavingNoCredentials() {
+        nimbleSurveyClient.nimbleSurveyAPI = mockNimbleSurveyAPI
+
+        let result = nimbleSurveyClient.surveyList(pageNumber: 1, pageSize: 10)
+            .toBlocking()
+            .materialize()
+
+        switch result {
+        case .completed:
+            XCTFail("Should get survey list failed")
+        case .failed:
+            break
+        }
+    }
+
+    func testGetSurveyListFailWhenHavingExpiredCredentialsRefreshFail() {
+        guard let credentials = Credentials(
+            accessToken: "at1234",
+            tokenType: "Bearer",
+            refreshToken: "rt5678",
+            validUntil: "1990-01-01 00:00:00"
+        ) else {
+            fatalError("Failed to create credentials")
+        }
+
+        mockCredentialsStorage.retrieveResult = credentials
+        nimbleSurveyClient.nimbleSurveyAPI = mockNimbleSurveyAPI
+
+        let result = nimbleSurveyClient.surveyList(pageNumber: 1, pageSize: 10)
+            .toBlocking()
+            .materialize()
+
+        switch result {
+        case .completed:
+            XCTFail("Should get survey list failed")
+        case .failed:
+            break
+        }
+    }
+
+    func testGetSurveyListFailWhenHavingExpiredCredentialsRefreshSucceed() {
+        guard let credentials = Credentials(
+            accessToken: "at1234",
+            tokenType: "Bearer",
+            refreshToken: "rt5678",
+            validUntil: "1990-01-01 00:00:00"
+        ) else {
+            fatalError("Failed to create credentials")
+        }
+
+        mockCredentialsStorage.retrieveResult = credentials
+        mockNimbleSurveyAPI.refreshTokenResult = .success(credentials)
+        mockNimbleSurveyAPI.surveyListResult = .failure(.failedToGetSurveys)
+        nimbleSurveyClient.nimbleSurveyAPI = mockNimbleSurveyAPI
+
+        let result = nimbleSurveyClient.surveyList(pageNumber: 1, pageSize: 10)
+            .toBlocking()
+            .materialize()
+
+        switch result {
+        case .completed:
+            XCTFail("Should get survey list failed")
+        case .failed:
+            break
+        }
+    }
+
+    func testGetSurveyListFailWhenHavingValidCredentials() {
+        guard let credentials = Credentials(
+            accessToken: "at1234",
+            tokenType: "Bearer",
+            refreshToken: "rt5678",
+            validUntil: "3000-01-01 00:00:00"
+        ) else {
+            fatalError("Failed to create credentials")
+        }
+
+        mockCredentialsStorage.retrieveResult = credentials
         mockNimbleSurveyAPI.surveyListResult = .failure(.failedToGetSurveys)
         nimbleSurveyClient.nimbleSurveyAPI = mockNimbleSurveyAPI
 
@@ -111,6 +209,17 @@ class NimbleSurveyClientTests: XCTestCase {
             )
         ]
 
+        guard let credentials = Credentials(
+            accessToken: "at1234",
+            tokenType: "Bearer",
+            refreshToken: "rt5678",
+            validUntil: "3000-01-01 00:00:00"
+        ) else {
+            fatalError("Failed to create credentials")
+        }
+
+        mockCredentialsStorage.retrieveResult = credentials
+        mockNimbleSurveyAPI.refreshTokenResult = .success(credentials)
         mockNimbleSurveyAPI.surveyListResult = .success(surveys)
         nimbleSurveyClient.nimbleSurveyAPI = mockNimbleSurveyAPI
 
@@ -137,6 +246,17 @@ class NimbleSurveyClientTests: XCTestCase {
             )
         ]
 
+        guard let credentials = Credentials(
+            accessToken: "at1234",
+            tokenType: "Bearer",
+            refreshToken: "rt5678",
+            validUntil: "3000-01-01 00:00:00"
+        ) else {
+            fatalError("Failed to create credentials")
+        }
+
+        mockCredentialsStorage.retrieveResult = credentials
+        mockNimbleSurveyAPI.refreshTokenResult = .success(credentials)
         mockNimbleSurveyAPI.surveyListResult = .success(surveys)
         nimbleSurveyClient.nimbleSurveyAPI = mockNimbleSurveyAPI
 

@@ -48,7 +48,11 @@
 		D8C1A328282C0C9C00803A86 /* PlaceholderSurveyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A327282C0C9C00803A86 /* PlaceholderSurveyCell.swift */; };
 		D8C1A32A282D460800803A86 /* AccessTokenAuthorizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A329282D460800803A86 /* AccessTokenAuthorizable.swift */; };
 		D8C1A32C282D649700803A86 /* MockNimbleSurveyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A32B282D649700803A86 /* MockNimbleSurveyClient.swift */; };
-		D8C1A32E282E8C7600803A86 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A32D282E8C7600803A86 /* Credential.swift */; };
+		D8C1A32E282E8C7600803A86 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A32D282E8C7600803A86 /* Credentials.swift */; };
+		D8C1A330282EC3A200803A86 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A32F282EC3A200803A86 /* Navigator.swift */; };
+		D8C1A332282ECFBC00803A86 /* CredentialsStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A331282ECFBC00803A86 /* CredentialsStorageType.swift */; };
+		D8C1A335282ED1D600803A86 /* MockCredentialStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A334282ED1D600803A86 /* MockCredentialStorage.swift */; };
+		D8C1A337282ED76600803A86 /* Credentials+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A336282ED76600803A86 /* Credentials+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,7 +114,11 @@
 		D8C1A327282C0C9C00803A86 /* PlaceholderSurveyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderSurveyCell.swift; sourceTree = "<group>"; };
 		D8C1A329282D460800803A86 /* AccessTokenAuthorizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenAuthorizable.swift; sourceTree = "<group>"; };
 		D8C1A32B282D649700803A86 /* MockNimbleSurveyClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNimbleSurveyClient.swift; sourceTree = "<group>"; };
-		D8C1A32D282E8C7600803A86 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
+		D8C1A32D282E8C7600803A86 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		D8C1A32F282EC3A200803A86 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
+		D8C1A331282ECFBC00803A86 /* CredentialsStorageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsStorageType.swift; sourceTree = "<group>"; };
+		D8C1A334282ED1D600803A86 /* MockCredentialStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCredentialStorage.swift; sourceTree = "<group>"; };
+		D8C1A336282ED76600803A86 /* Credentials+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Credentials+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +183,7 @@
 				D8492D3F282973FA004F949D /* Login */,
 				D8492D3728296F5E004F949D /* NimbleSurveyAPI */,
 				D8492D3A28296FDA004F949D /* NimbleSurveyClient */,
+				D8C1A336282ED76600803A86 /* Credentials+Extensions.swift */,
 			);
 			path = NimbleSurveyTests;
 			sourceTree = "<group>";
@@ -192,6 +201,7 @@
 			children = (
 				D8492D40282980E8004F949D /* main.swift */,
 				D8492CC32825E610004F949D /* AppDelegate.swift */,
+				D8C1A32F282EC3A200803A86 /* Navigator.swift */,
 				D8492CFF28260F51004F949D /* Login */,
 				D8C1A317282AD0FB00803A86 /* Home */,
 			);
@@ -255,6 +265,7 @@
 			children = (
 				D8492D1C282825F8004F949D /* NimbleSurveyClientType.swift */,
 				D8492D152827CC94004F949D /* NimbleSurveyClient.swift */,
+				D8C1A333282ECFC200803A86 /* CredentialsStorage */,
 				D8492D2A28295C2D004F949D /* NimbleSurveyAPI */,
 			);
 			path = NimbleSurveyClient;
@@ -275,7 +286,7 @@
 				D8492D2D28295C55004F949D /* NimbleSurveyAPIProtocol.swift */,
 				D8492D2F28295C7F004F949D /* NimbleSurveyAPI.swift */,
 				D8492D3128295E70004F949D /* NimbleTargetType.swift */,
-				D8C1A32D282E8C7600803A86 /* Credential.swift */,
+				D8C1A32D282E8C7600803A86 /* Credentials.swift */,
 			);
 			path = NimbleSurveyAPI;
 			sourceTree = "<group>";
@@ -294,6 +305,7 @@
 			children = (
 				D8492D3828296FD3004F949D /* NimbleSurveyClientTests.swift */,
 				D8492D3B2829701A004F949D /* MockNimbleSurveyAPI.swift */,
+				D8C1A334282ED1D600803A86 /* MockCredentialStorage.swift */,
 			);
 			path = NimbleSurveyClient;
 			sourceTree = "<group>";
@@ -342,6 +354,14 @@
 				D8C1A327282C0C9C00803A86 /* PlaceholderSurveyCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		D8C1A333282ECFC200803A86 /* CredentialsStorage */ = {
+			isa = PBXGroup;
+			children = (
+				D8C1A331282ECFBC00803A86 /* CredentialsStorageType.swift */,
+			);
+			path = CredentialsStorage;
 			sourceTree = "<group>";
 		};
 		F27DE7177D283296507254F2 /* Pods */ = {
@@ -600,9 +620,11 @@
 				D8492CFE28260F49004F949D /* LoginViewController.swift in Sources */,
 				D8492D1828281A00004F949D /* NetworkAPIProtocol.swift in Sources */,
 				D8C1A316282AD0F800803A86 /* HomeViewController.swift in Sources */,
+				D8C1A332282ECFBC00803A86 /* CredentialsStorageType.swift in Sources */,
 				D8492CC42825E610004F949D /* AppDelegate.swift in Sources */,
 				D8C1A31E282AD64C00803A86 /* SurveyCell.swift in Sources */,
 				D8492D2728295717004F949D /* TargetType.swift in Sources */,
+				D8C1A330282EC3A200803A86 /* Navigator.swift in Sources */,
 				D8492CFB28260ED7004F949D /* R.generated.swift in Sources */,
 				D8492D4328298463004F949D /* ViewModelType.swift in Sources */,
 				D8492D2E28295C55004F949D /* NimbleSurveyAPIProtocol.swift in Sources */,
@@ -614,7 +636,7 @@
 				D8492D142827428D004F949D /* LoginViewModel.swift in Sources */,
 				D8C1A328282C0C9C00803A86 /* PlaceholderSurveyCell.swift in Sources */,
 				D8492D3028295C7F004F949D /* NimbleSurveyAPI.swift in Sources */,
-				D8C1A32E282E8C7600803A86 /* Credential.swift in Sources */,
+				D8C1A32E282E8C7600803A86 /* Credentials.swift in Sources */,
 				D8492D0728262AE8004F949D /* UIView+Styles.swift in Sources */,
 				D8C1A324282C09CF00803A86 /* UIView+addSubviews.swift in Sources */,
 				D8492D41282980E8004F949D /* main.swift in Sources */,
@@ -629,8 +651,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8C1A337282ED76600803A86 /* Credentials+Extensions.swift in Sources */,
 				D8492D3E282973F5004F949D /* LoginViewModelTests.swift in Sources */,
 				D8492D3928296FD3004F949D /* NimbleSurveyClientTests.swift in Sources */,
+				D8C1A335282ED1D600803A86 /* MockCredentialStorage.swift in Sources */,
 				D8492D34282964A7004F949D /* NimbleSurveyAPITests.swift in Sources */,
 				D8C1A32C282D649700803A86 /* MockNimbleSurveyClient.swift in Sources */,
 				D8492D3C2829701A004F949D /* MockNimbleSurveyAPI.swift in Sources */,

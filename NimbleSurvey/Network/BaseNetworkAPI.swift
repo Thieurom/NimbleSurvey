@@ -17,7 +17,7 @@ enum APIError: Error {
 }
 
 open class BaseNetworkAPI<Target: TargetType>: NetworkAPIProtocol {
-    typealias AccessTokenProviding = ((Target) -> String)
+    typealias AccessTokenProviding = ((Target) -> String?)
 
     let session: Session
 
