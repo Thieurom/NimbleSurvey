@@ -41,29 +41,37 @@ class NimbleSurveyClientTests: XCTestCase {
         super.tearDown()
     }
 
-    // MARK: - Test Login
+    // MARK: - Test authenticate
 
-    func testLoginFail() {
+    func testAuthenticateFail() {
         mockNimbleSurveyAPI.loginResult = .failure(.authenticationFailed)
         nimbleSurveyClient.nimbleSurveyAPI = mockNimbleSurveyAPI
 
-        let result = nimbleSurveyClient.login(email: email, password: password)
+        let result = nimbleSurveyClient.authenticate(email: email, password: password)
             .toBlocking()
             .materialize()
 
         switch result {
         case .completed:
-            XCTFail("Should login fail")
+            XCTFail("Should authenticate fail")
         case let .failed(_, error):
             XCTAssertTrue((error as? NimbleSurvey.NimbleSurveyError) == .authenticationFailed)
         }
     }
 
-    func testLoginSuccess() {
-        mockNimbleSurveyAPI.loginResult = .success(true)
+    func testAuthenticateSuccess() {
+        mockNimbleSurveyAPI.loginResult = .success(
+            Credential(
+                accessToken: "at1234",
+                tokenType: "Bearer",
+                refreshToken: "rt5678",
+                validUntil: Date()
+            )
+        )
+        
         nimbleSurveyClient.nimbleSurveyAPI = mockNimbleSurveyAPI
 
-        let result = nimbleSurveyClient.login(email: email, password: password)
+        let result = nimbleSurveyClient.authenticate(email: email, password: password)
             .toBlocking()
             .materialize()
 
@@ -71,7 +79,7 @@ class NimbleSurveyClientTests: XCTestCase {
         case .completed:
             break
         case .failed:
-            XCTFail("Should login successfully")
+            XCTFail("Should authenticate successfully")
         }
     }
 

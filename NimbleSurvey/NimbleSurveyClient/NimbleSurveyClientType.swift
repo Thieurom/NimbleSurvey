@@ -8,6 +8,6 @@
 import RxSwift
 
 protocol NimbleSurveyClientType {
-    func login(email: String, password: String) -> Completable
+    func authenticate(email: String, password: String) -> Completable
     func surveyList(pageNumber: Int, pageSize: Int) -> Single<[Survey]>
 }

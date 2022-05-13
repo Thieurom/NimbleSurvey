@@ -41,7 +41,7 @@ class LoginViewModel: ViewModelType {
 
         let loginEnabled = formInputs
             .map { email, password in
-                // Naive validation instead using some complex Regex from StackOverflow!
+                // Naive validation instead of using some complex Regex from StackOverflow!
                 return email.contains("@") && !password.isEmpty
             }
             .startWith(false)
@@ -54,7 +54,7 @@ class LoginViewModel: ViewModelType {
                     return .error(LoginError(message: R.string.localizable.login_fail_unknown()))
                 }
 
-                return self.nimbleSurveyClient.login(email: email, password: password)
+                return self.nimbleSurveyClient.authenticate(email: email, password: password)
                     .andThen(.just(.success(true)))
                     .catch { _ in
                         throw LoginError(message: R.string.localizable.login_fail_authen_fail())

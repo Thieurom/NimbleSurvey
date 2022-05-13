@@ -48,6 +48,7 @@
 		D8C1A328282C0C9C00803A86 /* PlaceholderSurveyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A327282C0C9C00803A86 /* PlaceholderSurveyCell.swift */; };
 		D8C1A32A282D460800803A86 /* AccessTokenAuthorizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A329282D460800803A86 /* AccessTokenAuthorizable.swift */; };
 		D8C1A32C282D649700803A86 /* MockNimbleSurveyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A32B282D649700803A86 /* MockNimbleSurveyClient.swift */; };
+		D8C1A32E282E8C7600803A86 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A32D282E8C7600803A86 /* Credential.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		D8C1A327282C0C9C00803A86 /* PlaceholderSurveyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderSurveyCell.swift; sourceTree = "<group>"; };
 		D8C1A329282D460800803A86 /* AccessTokenAuthorizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenAuthorizable.swift; sourceTree = "<group>"; };
 		D8C1A32B282D649700803A86 /* MockNimbleSurveyClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNimbleSurveyClient.swift; sourceTree = "<group>"; };
+		D8C1A32D282E8C7600803A86 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,6 +275,7 @@
 				D8492D2D28295C55004F949D /* NimbleSurveyAPIProtocol.swift */,
 				D8492D2F28295C7F004F949D /* NimbleSurveyAPI.swift */,
 				D8492D3128295E70004F949D /* NimbleTargetType.swift */,
+				D8C1A32D282E8C7600803A86 /* Credential.swift */,
 			);
 			path = NimbleSurveyAPI;
 			sourceTree = "<group>";
@@ -611,6 +614,7 @@
 				D8492D142827428D004F949D /* LoginViewModel.swift in Sources */,
 				D8C1A328282C0C9C00803A86 /* PlaceholderSurveyCell.swift in Sources */,
 				D8492D3028295C7F004F949D /* NimbleSurveyAPI.swift in Sources */,
+				D8C1A32E282E8C7600803A86 /* Credential.swift in Sources */,
 				D8492D0728262AE8004F949D /* UIView+Styles.swift in Sources */,
 				D8C1A324282C09CF00803A86 /* UIView+addSubviews.swift in Sources */,
 				D8492D41282980E8004F949D /* main.swift in Sources */,
