@@ -10,6 +10,7 @@ import Foundation
 
 enum NimbleTargetType: TargetType, AccessTokenAuthorizable {
     case login(email: String, password: String, clientId: String, clientSecret: String)
+    case refreshToken(refreshToken: String, clientId: String, clientSecret: String)
     case surveyList(pageNumber: Int, pageSize: Int)
 
     var baseURL: URL {
@@ -19,7 +20,7 @@ enum NimbleTargetType: TargetType, AccessTokenAuthorizable {
 
     var path: String {
         switch self {
-        case .login:
+        case .login, .refreshToken:
             return "/oauth/token"
         case .surveyList:
             return "/surveys"
@@ -28,7 +29,7 @@ enum NimbleTargetType: TargetType, AccessTokenAuthorizable {
 
     var method: HTTPMethod {
         switch self {
-        case .login:
+        case .login, .refreshToken:
             return .post
         case .surveyList:
             return .get
@@ -50,6 +51,14 @@ enum NimbleTargetType: TargetType, AccessTokenAuthorizable {
                 "client_secret": clientSecret
             ]
 
+        case let .refreshToken(refreshToken, clientId, clientSecret):
+            return [
+                "grant_type": "refresh_token",
+                "refresh_token": refreshToken,
+                "client_id": clientId,
+                "client_secret": clientSecret
+            ]
+
         case let .surveyList(pageNumber, pageSize):
             return [
                 "page_number": pageNumber,
@@ -60,7 +69,7 @@ enum NimbleTargetType: TargetType, AccessTokenAuthorizable {
 
     var encoding: ParameterEncoding {
         switch self {
-        case .login:
+        case .login, .refreshToken:
             return JSONEncoding()
         case .surveyList:
             return URLEncoding()
@@ -69,7 +78,7 @@ enum NimbleTargetType: TargetType, AccessTokenAuthorizable {
 
     var authorizationType: AuthorizationType? {
         switch self {
-        case .login:
+        case .login, .refreshToken:
             return nil
         case .surveyList:
             return .bearer

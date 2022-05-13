@@ -16,7 +16,7 @@ class NimbleSurveyAPI: BaseNetworkAPI<NimbleTargetType>, NimbleSurveyAPIProtocol
         super.init(session: session, accessTokenProviding: accessTokenProviding)
     }
 
-    func login(email: String, password: String, clientId: String, clientSecret: String) -> Completable {
+    func login(email: String, password: String, clientId: String, clientSecret: String) -> Single<Credential> {
         return request(
             for: .login(
                 email: email,
@@ -24,9 +24,21 @@ class NimbleSurveyAPI: BaseNetworkAPI<NimbleTargetType>, NimbleSurveyAPIProtocol
                 clientId: clientId,
                 clientSecret: clientSecret
             ),
-            type: LoginResponse.self
+            type: OAuthResponse.self
         )
-        .asCompletable()
+        .map { $0.toCredential() }
+    }
+
+    func refreshToken(refreshToken: String, clientId: String, clientSecret: String) -> Single<Credential> {
+        return request(
+            for: .refreshToken(
+                refreshToken: refreshToken,
+                clientId: clientId,
+                clientSecret: clientSecret
+            ),
+            type: OAuthResponse.self
+        )
+        .map { $0.toCredential() }
     }
 
     func surveyList(pageNumber: Int, pageSize: Int) -> Single<[Survey]> {
@@ -43,7 +55,7 @@ class NimbleSurveyAPI: BaseNetworkAPI<NimbleTargetType>, NimbleSurveyAPIProtocol
 
 // MARK: - API's responses
 
-private struct LoginResponse: Decodable {
+private struct OAuthResponse: Decodable {
     struct Data: Decodable {
         let attributes: Attributes
     }
@@ -51,12 +63,24 @@ private struct LoginResponse: Decodable {
     struct Attributes: Decodable {
         let accessToken: String
         let tokenType: String
-        let expiresIn: Int
+        let expiresIn: Double
         let refreshToken: String
         let createdAt: Double
     }
 
     let data: Data
+
+    // Map to app's object
+    func toCredential() -> Credential {
+        let attributes = data.attributes
+
+        return Credential(
+            accessToken: attributes.accessToken,
+            tokenType: attributes.tokenType,
+            refreshToken: attributes.refreshToken,
+            validUntil: Date(timeIntervalSince1970: attributes.createdAt + attributes.expiresIn)
+        )
+    }
 }
 
 private struct SurveysResponse: Decodable {

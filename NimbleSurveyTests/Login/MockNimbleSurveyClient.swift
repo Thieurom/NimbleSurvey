@@ -9,11 +9,11 @@
 import RxSwift
 
 class MockNimbleSurveyClient: NimbleSurveyClientType {
-    var loginResult: Result<Bool, NimbleSurveyError>?
+    var authenticateResult: Result<Bool, NimbleSurveyError>?
     var surveyListResult: Result<[Survey], NimbleSurveyError>?
 
-    func login(email: String, password: String) -> Completable {
-        switch loginResult {
+    func authenticate(email: String, password: String) -> Completable {
+        switch authenticateResult {
         case .success, .none:
             return .empty()
         case .failure(let error):

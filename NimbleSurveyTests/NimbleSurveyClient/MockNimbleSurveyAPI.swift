@@ -10,15 +10,29 @@ import Foundation
 import RxSwift
 
 class MockNimbleSurveyAPI: NimbleSurveyAPIProtocol {
-    var loginResult: Result<Bool, NimbleSurveyError>?
+    var loginResult: Result<Credential, NimbleSurveyError>?
+    var refreshTokenResult: Result<Credential, NimbleSurveyError>?
     var surveyListResult: Result<[Survey], NimbleSurveyError>?
 
-    func login(email: String, password: String, clientId: String, clientSecret: String) -> Completable {
+    func login(email: String, password: String, clientId: String, clientSecret: String) -> Single<Credential> {
         switch loginResult {
-        case .success, .none:
-            return .empty()
+        case .success(let credential):
+            return .just(credential)
         case .failure(let error):
             return .error(error)
+        case .none:
+            return .error(NimbleSurveyError.authenticationFailed)
+        }
+    }
+
+    func refreshToken(refreshToken: String, clientId: String, clientSecret: String) -> Single<Credential> {
+        switch refreshTokenResult {
+        case .success(let credential):
+            return .just(credential)
+        case .failure(let error):
+            return .error(error)
+        case .none:
+            return .error(NimbleSurveyError.authenticationFailed)
         }
     }
 

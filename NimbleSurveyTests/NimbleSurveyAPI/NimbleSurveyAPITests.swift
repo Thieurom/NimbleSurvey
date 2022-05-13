@@ -21,6 +21,14 @@ class NimbleSurveyAPITests: XCTestCase {
     private let password = "123456"
     private let clientId = "ID"
     private let clientSecret = "SECRET"
+    private let refreshToken = "rf12345"
+
+    // Helper
+    private lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
+        return formatter
+    }()
 
     override func setUp() {
         super.setUp()
@@ -142,6 +150,7 @@ class NimbleSurveyAPITests: XCTestCase {
     func testLoginFailWithUnknownError() {
         let error = NSError(domain: "Login", code: 101)
         MockURLProtocol.responseType = .error(error)
+
         let result = nimbleSurveyAPI.login(
             email: email,
             password: password,
@@ -159,8 +168,14 @@ class NimbleSurveyAPITests: XCTestCase {
         }
     }
 
-    func testLoginSuccess() {
+    func testLoginSuccess() throws {
         let response = HTTPURLResponse.ok
+
+        guard let createdDate = dateFormatter.date(from: "2022-05-13 12:30:45") else {
+            fatalError("Failed to parse date!")
+        }
+
+        let duration: Double = 7_200
 
         let json = """
         {
@@ -168,7 +183,102 @@ class NimbleSurveyAPITests: XCTestCase {
                 "id": "10",
                 "type": "token",
                 "attributes": {
-                    "access_token": "ACCESS_TOKEN",
+                    "access_token": "at1234",
+                    "token_type": "Bearer",
+                    "expires_in": \(duration),
+                    "refresh_token": "rt5678",
+                    "created_at": \(createdDate.timeIntervalSince1970)
+                }
+            }
+        }
+        """
+
+        let data = json.data(using: .utf8)!
+        MockURLProtocol.responseType = .data(response, data)
+
+        let result = try nimbleSurveyAPI.login(
+            email: email,
+            password: password,
+            clientId: clientId,
+            clientSecret: clientSecret
+        )
+            .toBlocking()
+            .first()
+
+        let expectedCredential = Credential(
+            accessToken: "at1234",
+            tokenType: "Bearer",
+            refreshToken: "rt5678",
+            validUntil: createdDate.addingTimeInterval(duration)
+        )
+
+        XCTAssertEqual(result, expectedCredential)
+    }
+
+    // MARK: - Test refresh token
+
+    func testRefreshTokenFailWithEmptyData() {
+        let response = HTTPURLResponse.ok
+        let data = Data()
+        MockURLProtocol.responseType = .data(response, data)
+
+        let result = nimbleSurveyAPI.refreshToken(
+            refreshToken: refreshToken,
+            clientId: clientId,
+            clientSecret: clientSecret
+        )
+            .toBlocking()
+            .materialize()
+
+        switch result {
+        case .completed:
+            XCTFail("Should refresh token failed")
+        case let .failed(_, error: error):
+            XCTAssertTrue((error as? APIError) == .unknown)
+        }
+    }
+
+    func testRefreshTokenFailWith4xxError() {
+        let response = HTTPURLResponse.clientFail
+
+        let json = """
+        {
+            "errors": [{
+                "code": "invalid"
+            }]
+        }
+        """
+
+        let data = json.data(using: .utf8)!
+        MockURLProtocol.responseType = .data(response, data)
+
+        let result = nimbleSurveyAPI.refreshToken(
+            refreshToken: refreshToken,
+            clientId: clientId,
+            clientSecret: clientSecret
+        )
+            .toBlocking()
+            .materialize()
+
+        switch result {
+        case .completed:
+            XCTFail("Should refresh token failed")
+        case let .failed(_, error: error):
+            XCTAssertTrue((error as? APIError) == .network)
+        }
+    }
+
+    func testRefreshTokenFailWithWrongFormatData() {
+        let response = HTTPURLResponse.ok
+
+        // `accessing_token` instead of `access_token`
+        let json = """
+        {
+            "data": {
+                "id": "10",
+                "type": "token",
+                "attributes": {
+                    "accessing_token": "ACCESS_TOKEN",
                     "token_type": "Bearer",
                     "expires_in": 7200,
                     "refresh_token": "REFRESH_TOKEN",
@@ -181,9 +291,8 @@ class NimbleSurveyAPITests: XCTestCase {
         let data = json.data(using: .utf8)!
         MockURLProtocol.responseType = .data(response, data)
 
-        let result = nimbleSurveyAPI.login(
-            email: email,
-            password: password,
+        let result = nimbleSurveyAPI.refreshToken(
+            refreshToken: refreshToken,
             clientId: clientId,
             clientSecret: clientSecret
         )
@@ -192,10 +301,76 @@ class NimbleSurveyAPITests: XCTestCase {
 
         switch result {
         case .completed:
-            break
-        case .failed:
-            XCTFail("Should login successfully")
+            XCTFail("Should refresh token failed")
+        case let .failed(_, error: error):
+            XCTAssertTrue((error as? APIError) == .parsing)
         }
+    }
+
+    func testRefreshTokenFailWithUnknownError() {
+        let error = NSError(domain: "Login", code: 101)
+        MockURLProtocol.responseType = .error(error)
+
+        let result = nimbleSurveyAPI.refreshToken(
+            refreshToken: refreshToken,
+            clientId: clientId,
+            clientSecret: clientSecret
+        )
+            .toBlocking()
+            .materialize()
+
+        switch result {
+        case .completed:
+            XCTFail("Should refresh token failed")
+        case let .failed(_, error: error):
+            XCTAssertTrue((error as? APIError) == .unknown)
+        }
+    }
+
+    func testRefreshTokenSuccess() throws {
+        let response = HTTPURLResponse.ok
+
+        guard let createdDate = dateFormatter.date(from: "2022-05-13 12:30:45") else {
+            fatalError("Failed to parse date!")
+        }
+
+        let duration: Double = 7_200
+
+        let json = """
+        {
+            "data": {
+                "id": "10",
+                "type": "token",
+                "attributes": {
+                    "access_token": "at1234",
+                    "token_type": "Bearer",
+                    "expires_in": \(duration),
+                    "refresh_token": "rt5678",
+                    "created_at": \(createdDate.timeIntervalSince1970)
+                }
+            }
+        }
+        """
+
+        let data = json.data(using: .utf8)!
+        MockURLProtocol.responseType = .data(response, data)
+
+        let result = try nimbleSurveyAPI.refreshToken(
+            refreshToken: refreshToken,
+            clientId: clientId,
+            clientSecret: clientSecret
+        )
+            .toBlocking()
+            .first()
+
+        let expectedCredential = Credential(
+            accessToken: "at1234",
+            tokenType: "Bearer",
+            refreshToken: "rt5678",
+            validUntil: createdDate.addingTimeInterval(duration)
+        )
+
+        XCTAssertEqual(result, expectedCredential)
     }
 
     // MARK: - Test survey list

@@ -51,7 +51,7 @@ open class BaseNetworkAPI<Target: TargetType>: NetworkAPIProtocol {
                 name: "Authorization",
                 value: "\(authorizationType.rawValue) \(accessToken)"
             )
-            
+
             if headers == nil {
                 headers = .init([header])
             } else {

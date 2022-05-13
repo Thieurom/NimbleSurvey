@@ -33,13 +33,14 @@ class NimbleSurveyClient: NimbleSurveyClientType {
         self.clientSecret = clientSecret
     }
 
-    func login(email: String, password: String) -> Completable {
+    func authenticate(email: String, password: String) -> Completable {
         return nimbleSurveyAPI.login(
             email: email,
             password: password,
             clientId: clientId,
             clientSecret: clientSecret
         )
+        .asCompletable()
         .catch { _ in
             throw NimbleSurveyError.authenticationFailed
         }
