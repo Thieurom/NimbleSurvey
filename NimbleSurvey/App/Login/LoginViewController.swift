@@ -271,8 +271,12 @@ extension LoginViewController {
             .drive(onNext: { result in
                 switch result {
                 case .success:
-                    // TODO: Go to HOME
-                    print("Success")
+                    Navigator.default.show(
+                        scene: .home,
+                        sender: nil,
+                        transition: .root
+                    )
+
                 case.failure(let error):
                     // TODO: Show toast
                     print("Fail: \(error)")

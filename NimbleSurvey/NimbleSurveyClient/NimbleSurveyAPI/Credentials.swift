@@ -1,5 +1,5 @@
 //
-//  Credential.swift
+//  Credentials.swift
 //  NimbleSurvey
 //
 //  Created by Doan Le Thieu on 13/05/2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Credential: Equatable, Codable {
+struct Credentials: Equatable, Codable {
     let accessToken: String
     let tokenType: String
     let refreshToken: String

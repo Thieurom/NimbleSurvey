@@ -23,13 +23,6 @@ class NimbleSurveyAPITests: XCTestCase {
     private let clientSecret = "SECRET"
     private let refreshToken = "rf12345"
 
-    // Helper
-    private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
-        return formatter
-    }()
-
     override func setUp() {
         super.setUp()
 
@@ -171,8 +164,13 @@ class NimbleSurveyAPITests: XCTestCase {
     func testLoginSuccess() throws {
         let response = HTTPURLResponse.ok
 
-        guard let createdDate = dateFormatter.date(from: "2022-05-13 12:30:45") else {
-            fatalError("Failed to parse date!")
+        guard let expectedCredential = Credentials(
+            accessToken: "at1234",
+            tokenType: "Bearer",
+            refreshToken: "rt5678",
+            validUntil: "2022-05-13 12:30:45"
+        ) else {
+            fatalError("Failed to create credentials")
         }
 
         let duration: Double = 7_200
@@ -187,7 +185,7 @@ class NimbleSurveyAPITests: XCTestCase {
                     "token_type": "Bearer",
                     "expires_in": \(duration),
                     "refresh_token": "rt5678",
-                    "created_at": \(createdDate.timeIntervalSince1970)
+                    "created_at": \(expectedCredential.validUntil.timeIntervalSince1970 - duration)
                 }
             }
         }
@@ -204,13 +202,6 @@ class NimbleSurveyAPITests: XCTestCase {
         )
             .toBlocking()
             .first()
-
-        let expectedCredential = Credential(
-            accessToken: "at1234",
-            tokenType: "Bearer",
-            refreshToken: "rt5678",
-            validUntil: createdDate.addingTimeInterval(duration)
-        )
 
         XCTAssertEqual(result, expectedCredential)
     }
@@ -330,8 +321,13 @@ class NimbleSurveyAPITests: XCTestCase {
     func testRefreshTokenSuccess() throws {
         let response = HTTPURLResponse.ok
 
-        guard let createdDate = dateFormatter.date(from: "2022-05-13 12:30:45") else {
-            fatalError("Failed to parse date!")
+        guard let expectedCredential = Credentials(
+            accessToken: "at1234",
+            tokenType: "Bearer",
+            refreshToken: "rt5678",
+            validUntil: "2022-05-13 12:30:45"
+        ) else {
+            fatalError("Failed to create credentials")
         }
 
         let duration: Double = 7_200
@@ -346,7 +342,7 @@ class NimbleSurveyAPITests: XCTestCase {
                     "token_type": "Bearer",
                     "expires_in": \(duration),
                     "refresh_token": "rt5678",
-                    "created_at": \(createdDate.timeIntervalSince1970)
+                    "created_at": \(expectedCredential.validUntil.timeIntervalSince1970 - duration)
                 }
             }
         }
@@ -362,13 +358,6 @@ class NimbleSurveyAPITests: XCTestCase {
         )
             .toBlocking()
             .first()
-
-        let expectedCredential = Credential(
-            accessToken: "at1234",
-            tokenType: "Bearer",
-            refreshToken: "rt5678",
-            validUntil: createdDate.addingTimeInterval(duration)
-        )
 
         XCTAssertEqual(result, expectedCredential)
     }

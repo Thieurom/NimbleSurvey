@@ -5,6 +5,7 @@
 //  Created by Doan Le Thieu on 07/05/2022.
 //
 
+import KeychainAccess
 import UIKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -12,17 +13,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     lazy var nimbleSurveyClient = NimbleSurveyClient(
         clientId: clientId,
-        clientSecret: clientSecret
+        clientSecret: clientSecret,
+        credentialsStorage: Keychain(service: "co.survey-api.nimblehq")
     )
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-        let loginViewModel = LoginViewModel(nimbleSurveyClient: nimbleSurveyClient)
-        let loginViewController = LoginViewController(viewModel: loginViewModel)
-
         window = window ?? UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = loginViewController
         window?.makeKeyAndVisible()
+
+        if nimbleSurveyClient.hasCredentials() {
+            Navigator.default.show(scene: .home, sender: nil, transition: .root)
+        } else {
+            Navigator.default.show(scene: .login, sender: nil, transition: .root)
+        }
 
         return true
     }

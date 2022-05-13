@@ -8,7 +8,7 @@
 import RxSwift
 
 protocol NimbleSurveyAPIProtocol {
-    func login(email: String, password: String, clientId: String, clientSecret: String) -> Single<Credential>
-    func refreshToken(refreshToken: String, clientId: String, clientSecret: String) -> Single<Credential>
+    func login(email: String, password: String, clientId: String, clientSecret: String) -> Single<Credentials>
+    func refreshToken(refreshToken: String, clientId: String, clientSecret: String) -> Single<Credentials>
     func surveyList(pageNumber: Int, pageSize: Int) -> Single<[Survey]>
 }

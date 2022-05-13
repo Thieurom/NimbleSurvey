@@ -10,13 +10,7 @@ import Foundation
 import RxSwift
 
 class NimbleSurveyAPI: BaseNetworkAPI<NimbleTargetType>, NimbleSurveyAPIProtocol {
-
-    // We explicitly require none nil `AccessTokenProviding`
-    init(session: Session = .default, accessTokenProviding: @escaping AccessTokenProviding) {
-        super.init(session: session, accessTokenProviding: accessTokenProviding)
-    }
-
-    func login(email: String, password: String, clientId: String, clientSecret: String) -> Single<Credential> {
+    func login(email: String, password: String, clientId: String, clientSecret: String) -> Single<Credentials> {
         return request(
             for: .login(
                 email: email,
@@ -26,10 +20,10 @@ class NimbleSurveyAPI: BaseNetworkAPI<NimbleTargetType>, NimbleSurveyAPIProtocol
             ),
             type: OAuthResponse.self
         )
-        .map { $0.toCredential() }
+        .map { $0.toCredentials() }
     }
 
-    func refreshToken(refreshToken: String, clientId: String, clientSecret: String) -> Single<Credential> {
+    func refreshToken(refreshToken: String, clientId: String, clientSecret: String) -> Single<Credentials> {
         return request(
             for: .refreshToken(
                 refreshToken: refreshToken,
@@ -38,7 +32,7 @@ class NimbleSurveyAPI: BaseNetworkAPI<NimbleTargetType>, NimbleSurveyAPIProtocol
             ),
             type: OAuthResponse.self
         )
-        .map { $0.toCredential() }
+        .map { $0.toCredentials() }
     }
 
     func surveyList(pageNumber: Int, pageSize: Int) -> Single<[Survey]> {
@@ -53,7 +47,7 @@ class NimbleSurveyAPI: BaseNetworkAPI<NimbleTargetType>, NimbleSurveyAPIProtocol
     }
 }
 
-// MARK: - API's responses
+// MARK: - API's responses (naming convetion: suffix with `Response`)
 
 private struct OAuthResponse: Decodable {
     struct Data: Decodable {
@@ -71,10 +65,10 @@ private struct OAuthResponse: Decodable {
     let data: Data
 
     // Map to app's object
-    func toCredential() -> Credential {
+    func toCredentials() -> Credentials {
         let attributes = data.attributes
 
-        return Credential(
+        return Credentials(
             accessToken: attributes.accessToken,
             tokenType: attributes.tokenType,
             refreshToken: attributes.refreshToken,

@@ -10,6 +10,7 @@ import RxSwift
 
 class MockNimbleSurveyClient: NimbleSurveyClientType {
     var authenticateResult: Result<Bool, NimbleSurveyError>?
+    var hasCredentialsResult = true
     var surveyListResult: Result<[Survey], NimbleSurveyError>?
 
     func authenticate(email: String, password: String) -> Completable {
@@ -19,6 +20,10 @@ class MockNimbleSurveyClient: NimbleSurveyClientType {
         case .failure(let error):
             return .error(error)
         }
+    }
+
+    func hasCredentials() -> Bool {
+        return hasCredentialsResult
     }
 
     func surveyList(pageNumber: Int, pageSize: Int) -> Single<[Survey]> {

@@ -14,6 +14,9 @@ target 'NimbleSurvey' do
   pod 'Alamofire'
   pod 'RxAlamofire'
 
+  # Secure storage
+  pod 'KeychainAccess'
+
   # Reactive
   pod 'RxSwift', '6.5.0'
   pod 'RxCocoa', '6.5.0'
