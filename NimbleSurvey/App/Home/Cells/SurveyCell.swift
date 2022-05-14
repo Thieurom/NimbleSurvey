@@ -33,12 +33,7 @@ class SurveyCell: UICollectionViewCell {
         $0.clipsToBounds = true
     }
 
-    private lazy var overlayView = LinearGradientView(
-        colors: [
-            .black.withAlphaComponent(0),
-            .black
-        ]
-    )
+    private lazy var overlayView = LinearGradientView()
 
     // MARK: - Internals
 
@@ -62,6 +57,12 @@ class SurveyCell: UICollectionViewCell {
 
         disposeBag = DisposeBag()
     }
+
+    func bindData(surveyViewModel: SurveyViewModel) {
+        descriptionView.titleLabel.text = surveyViewModel.title
+        descriptionView.subtitleLabel.text = surveyViewModel.description
+        backgroundImageView.kf.setImage(with: surveyViewModel.coverImageUrl)
+    }
 }
 
 // MARK: - Private
@@ -84,7 +85,7 @@ extension SurveyCell {
             if #available(iOS 11.0, *) {
                 make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-20)
             } else {
-                make.bottom.equalTo(layoutMarginsGuide.snp.topMargin).offset(-20)
+                make.bottom.equalTo(layoutMarginsGuide.snp.bottomMargin).offset(-20)
             }
         }
 

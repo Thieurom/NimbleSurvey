@@ -5,3 +5,4 @@
 "login_fail_unknown" = "Unknown error";
 "login_fail_authen_fail" = "Authentication Failed";
 "home_today" = "Today";
+"survey_start_survey" = "Start Survey";

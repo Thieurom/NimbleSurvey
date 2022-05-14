@@ -9,11 +9,19 @@ import UIKit
 
 class LinearGradientView: UIView {
 
+    // Subclasses can override
+    class var defaultColors: [UIColor] {
+        return [
+            UIColor.black.withAlphaComponent(0),
+            UIColor.black
+        ]
+    }
+
     private let colors: [CGColor]
     private lazy var gradientLayer = CAGradientLayer()
 
-    init(colors: [UIColor]) {
-        self.colors = colors.map(\.cgColor)
+    init(colors: [UIColor]? = nil) {
+        self.colors = (colors ?? Self.defaultColors).map(\.cgColor)
         super.init(frame: .zero)
 
         setupView()

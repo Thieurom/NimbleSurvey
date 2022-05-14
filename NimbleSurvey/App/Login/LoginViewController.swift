@@ -38,8 +38,8 @@ class LoginViewController: UIViewController {
         $0.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
     }
 
-    lazy var loginButton = UIButton(type: .system).apply {
-        $0.backgroundColor = .white
+    lazy var loginButton = LoadingButton().apply {
+        $0.backgroundColor = Theme.Color.secondaryBackground
         $0.setTitle(R.string.localizable.login_login_button(), for: .normal)
         $0.titleLabel?.font = Theme.Font.title
         $0.setTitleColor(.black, for: .normal)
@@ -54,12 +54,7 @@ class LoginViewController: UIViewController {
         $0.image = R.image.background()
     }
 
-    private lazy var overlayView = LinearGradientView(
-        colors: [
-            .black.withAlphaComponent(0),
-            .black
-        ]
-    )
+    private lazy var overlayView = LinearGradientView()
 
     private lazy var blurView: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .dark)
@@ -267,6 +262,22 @@ extension LoginViewController {
             .drive(loginButton.rx.isUserInteractionEnabled)
             .disposed(by: disposeBag)
 
+        output.requestInFlight
+            .drive(onNext: { [weak self] requestInFlight in
+                if requestInFlight {
+                    self?.loginButton.showLoading()
+                } else {
+                    self?.loginButton.hideLoading()
+                }
+
+                self?.view.isUserInteractionEnabled = !requestInFlight
+
+                UIView.animate(withDuration: 0.25) {
+                    self?.view.alpha = requestInFlight ? 0.8 : 1
+                }
+            })
+            .disposed(by: disposeBag)
+
         output.loginResult
             .drive(onNext: { result in
                 switch result {
@@ -292,7 +303,7 @@ extension LoginViewController {
     private func formInputField(placeholder: String) -> UITextField {
         let textField = UITextField()
 
-        textField.backgroundColor = .white.withAlphaComponent(0.18)
+        textField.backgroundColor = Theme.Color.secondaryBackground.withAlphaComponent(0.18)
         textField.textColor = Theme.Color.primaryText
         textField.roundingCorner(12)
         textField.font = Theme.Font.body

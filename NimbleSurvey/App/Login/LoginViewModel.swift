@@ -26,6 +26,7 @@ class LoginViewModel: ViewModelType {
     struct Output {
         let loginEnabled: Driver<Bool>
         let loginResult: Driver<Result<Bool, LoginError>>
+        let requestInFlight: Driver<Bool>
     }
 
     // MARK: - Dependencies
@@ -47,6 +48,8 @@ class LoginViewModel: ViewModelType {
             .startWith(false)
             .asDriver(onErrorJustReturn: false)
 
+        let requestInFlight = BehaviorRelay(value: false)
+
         let loginResult = input.loginTrigger
             .withLatestFrom(formInputs)
             .flatMapLatest { [weak self] email, password -> Single<Result<Bool, LoginError>> in
@@ -54,7 +57,12 @@ class LoginViewModel: ViewModelType {
                     return .error(LoginError(message: R.string.localizable.login_fail_unknown()))
                 }
 
+                requestInFlight.accept(true)
+
                 return self.nimbleSurveyClient.authenticate(email: email, password: password)
+                    .do(onCompleted: {
+                        requestInFlight.accept(false)
+                    })
                     .andThen(.just(.success(true)))
                     .catch { _ in
                         throw LoginError(message: R.string.localizable.login_fail_authen_fail())
@@ -64,7 +72,8 @@ class LoginViewModel: ViewModelType {
 
         return Output(
             loginEnabled: loginEnabled,
-            loginResult: loginResult
+            loginResult: loginResult,
+            requestInFlight: requestInFlight.asDriver()
         )
     }
 }

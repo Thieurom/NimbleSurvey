@@ -18,12 +18,7 @@ class PlaceholderSurveyCell: UICollectionViewCell {
     lazy var headerView = HeaderView()
     lazy var descriptionView = DescriptionView()
 
-    private lazy var overlayView = LinearGradientView(
-        colors: [
-            .black.withAlphaComponent(0),
-            .black
-        ]
-    )
+    private lazy var overlayView = LinearGradientView()
 
     // MARK: - Initializations
 
@@ -61,7 +56,7 @@ extension PlaceholderSurveyCell {
         }
 
         descriptionView.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(headerView.snp.bottom)
+            make.top.greaterThanOrEqualToSuperview().offset(50)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-100)
 
