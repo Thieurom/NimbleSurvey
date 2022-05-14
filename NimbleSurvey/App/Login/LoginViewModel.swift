@@ -65,7 +65,8 @@ class LoginViewModel: ViewModelType {
                     })
                     .andThen(.just(.success(true)))
                     .catch { _ in
-                        throw LoginError(message: R.string.localizable.login_fail_authen_fail())
+                        requestInFlight.accept(false)
+                        return .just(.failure(.init(message: R.string.localizable.login_fail_authen_fail())))
                     }
             }
             .asDriver(onErrorJustReturn: .failure(.init(message: R.string.localizable.login_fail_authen_fail())))
