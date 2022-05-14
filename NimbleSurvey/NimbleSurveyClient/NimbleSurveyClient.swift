@@ -107,7 +107,7 @@ extension NimbleSurveyClient {
         return nimbleSurveyAPI.refreshToken(
             refreshToken: credentials.refreshToken,
             clientId: clientId,
-            clientSecret: clientId
+            clientSecret: clientSecret
         )
         .do(onSuccess: { [weak self] in
             // Store newly-refresh credentials

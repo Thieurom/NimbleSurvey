@@ -10,6 +10,7 @@ import UIKit
 enum Scene {
     case login
     case home
+    case survey
 }
 
 enum Transition {
@@ -29,11 +30,15 @@ class Navigator: Navigatable {
     private init() {}
 
     func show(scene: Scene, sender: UIViewController?, transition: Transition) {
+        guard let viewController = viewController(from: scene) else {
+            return
+        }
+
         switch transition {
         case .root:
-            UIApplication.shared.keyWindow?.rootViewController = viewController(from: scene)
+            UIApplication.shared.keyWindow?.rootViewController = viewController
         case .navigation:
-            break
+            sender?.navigationController?.pushViewController(viewController, animated: true)
         case .modal:
             break
         }
@@ -52,9 +57,16 @@ class Navigator: Navigatable {
         case .login:
             let loginViewModel = LoginViewModel(nimbleSurveyClient: nimbleSurveyClient)
             return LoginViewController(viewModel: loginViewModel)
+
         case .home:
             let homeViewModel = HomeViewModel(nimbleSurveyClient: nimbleSurveyClient)
-            return HomeViewController(viewModel: homeViewModel)
+            let homeViewController = HomeViewController(viewModel: homeViewModel)
+            let navigationController = UINavigationController(rootViewController: homeViewController)
+            return navigationController
+
+        case .survey:
+            let surveyDetailViewModel = SurveyDetailViewModel(nimbleSurveyClient: nimbleSurveyClient)
+            return SurveyDetailViewController(viewModel: surveyDetailViewModel)
         }
     }
 }

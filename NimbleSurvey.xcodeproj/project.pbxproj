@@ -53,6 +53,9 @@
 		D8C1A332282ECFBC00803A86 /* CredentialsStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A331282ECFBC00803A86 /* CredentialsStorageType.swift */; };
 		D8C1A335282ED1D600803A86 /* MockCredentialStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A334282ED1D600803A86 /* MockCredentialStorage.swift */; };
 		D8C1A337282ED76600803A86 /* Credentials+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A336282ED76600803A86 /* Credentials+Extensions.swift */; };
+		D8C1A339282F51A100803A86 /* SurveyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A338282F51A100803A86 /* SurveyDetailViewController.swift */; };
+		D8C1A33C282F520500803A86 /* SurveyDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A33B282F520500803A86 /* SurveyDetailViewModel.swift */; };
+		D8C1A33E282F9D8F00803A86 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A33D282F9D8F00803A86 /* LoadingButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +122,9 @@
 		D8C1A331282ECFBC00803A86 /* CredentialsStorageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsStorageType.swift; sourceTree = "<group>"; };
 		D8C1A334282ED1D600803A86 /* MockCredentialStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCredentialStorage.swift; sourceTree = "<group>"; };
 		D8C1A336282ED76600803A86 /* Credentials+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Credentials+Extensions.swift"; sourceTree = "<group>"; };
+		D8C1A338282F51A100803A86 /* SurveyDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyDetailViewController.swift; sourceTree = "<group>"; };
+		D8C1A33B282F520500803A86 /* SurveyDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyDetailViewModel.swift; sourceTree = "<group>"; };
+		D8C1A33D282F9D8F00803A86 /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +210,8 @@
 				D8C1A32F282EC3A200803A86 /* Navigator.swift */,
 				D8492CFF28260F51004F949D /* Login */,
 				D8C1A317282AD0FB00803A86 /* Home */,
+				D8C1A33A282F51C700803A86 /* Survey */,
+				D8C1A325282C0B9D00803A86 /* CommonViews */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -325,7 +333,6 @@
 				D8C1A315282AD0F800803A86 /* HomeViewController.swift */,
 				D8C1A318282AD1A500803A86 /* HomeViewModel.swift */,
 				D8C1A326282C0C4C00803A86 /* Cells */,
-				D8C1A325282C0B9D00803A86 /* CommonViews */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -343,6 +350,7 @@
 			children = (
 				D8C1A321282C071F00803A86 /* HeaderView.swift */,
 				D8C1A31F282C05C900803A86 /* DescriptionView.swift */,
+				D8C1A33D282F9D8F00803A86 /* LoadingButton.swift */,
 			);
 			path = CommonViews;
 			sourceTree = "<group>";
@@ -362,6 +370,15 @@
 				D8C1A331282ECFBC00803A86 /* CredentialsStorageType.swift */,
 			);
 			path = CredentialsStorage;
+			sourceTree = "<group>";
+		};
+		D8C1A33A282F51C700803A86 /* Survey */ = {
+			isa = PBXGroup;
+			children = (
+				D8C1A338282F51A100803A86 /* SurveyDetailViewController.swift */,
+				D8C1A33B282F520500803A86 /* SurveyDetailViewModel.swift */,
+			);
+			path = Survey;
 			sourceTree = "<group>";
 		};
 		F27DE7177D283296507254F2 /* Pods */ = {
@@ -613,6 +630,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8492D02282612FA004F949D /* Applicable.swift in Sources */,
+				D8C1A339282F51A100803A86 /* SurveyDetailViewController.swift in Sources */,
 				D8C1A319282AD1A500803A86 /* HomeViewModel.swift in Sources */,
 				D8492D1D282825F8004F949D /* NimbleSurveyClientType.swift in Sources */,
 				D8C1A31B282AD37E00803A86 /* Survey.swift in Sources */,
@@ -633,8 +651,10 @@
 				D8C1A32A282D460800803A86 /* AccessTokenAuthorizable.swift in Sources */,
 				D8492D2328289017004F949D /* Secrets.swift in Sources */,
 				D8492D2928295850004F949D /* Observable+decode.swift in Sources */,
+				D8C1A33E282F9D8F00803A86 /* LoadingButton.swift in Sources */,
 				D8492D142827428D004F949D /* LoginViewModel.swift in Sources */,
 				D8C1A328282C0C9C00803A86 /* PlaceholderSurveyCell.swift in Sources */,
+				D8C1A33C282F520500803A86 /* SurveyDetailViewModel.swift in Sources */,
 				D8492D3028295C7F004F949D /* NimbleSurveyAPI.swift in Sources */,
 				D8C1A32E282E8C7600803A86 /* Credentials.swift in Sources */,
 				D8492D0728262AE8004F949D /* UIView+Styles.swift in Sources */,

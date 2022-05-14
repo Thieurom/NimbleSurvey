@@ -27,6 +27,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Navigator.default.show(scene: .login, sender: nil, transition: .root)
         }
 
+        setupNavigationBarAppearance()
+
         return true
+    }
+}
+
+// MARK: - Globally customized
+
+extension AppDelegate {
+    private func setupNavigationBarAppearance() {
+        // Make navigation bar transparent
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().backgroundColor = .clear
+        UINavigationBar.appearance().tintColor = Theme.Color.secondaryBackground
+        UINavigationBar.appearance().isTranslucent = true
+
+        // Custom back button's image
+        UINavigationBar.appearance().backIndicatorImage = R.image.ic_left_arrow()
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = R.image.ic_left_arrow()
+
+        // Clear back button's text
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .highlighted)
     }
 }

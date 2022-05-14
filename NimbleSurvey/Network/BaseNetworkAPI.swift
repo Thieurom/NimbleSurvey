@@ -49,7 +49,7 @@ open class BaseNetworkAPI<Target: TargetType>: NetworkAPIProtocol {
            let accessToken = accessTokenProviding?(target) {
             let header = HTTPHeader(
                 name: "Authorization",
-                value: "\(authorizationType.rawValue) \(accessToken)"
+                value: "\(authorizationType.value) \(accessToken)"
             )
 
             if headers == nil {

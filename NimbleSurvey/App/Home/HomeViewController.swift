@@ -29,6 +29,7 @@ class HomeViewController: UIViewController {
         flowLayout.itemSize = CGSize(width: view.frame.width, height: view.frame.height)
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = Theme.Color.primaryBackground
@@ -75,6 +76,18 @@ class HomeViewController: UIViewController {
         viewDidLoadTrigger.onNext(())
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -84,8 +97,10 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController {
     private func setupViews() {
+        // Add views to hierarchy
         view.addSubviews(collectionView, headerView, pageControl)
 
+        // Constraint
         headerView.snp.makeConstraints { make in
             if #available(iOS 11.0, *) {
                 make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
@@ -112,9 +127,11 @@ extension HomeViewController {
             if #available(iOS 11.0, *) {
                 make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-160)
             } else {
-                make.bottom.equalTo(view.layoutMarginsGuide.snp.topMargin).offset(-160)
+                make.bottom.equalTo(view.layoutMarginsGuide.snp.bottomMargin).offset(-160)
             }
         }
+
+        automaticallyAdjustsScrollViewInsets = false
     }
 
     private func setupDataSource() {
@@ -134,9 +151,20 @@ extension HomeViewController {
                     fatalError("Failed to dequeue cell SurveyCell")
                 }
 
-                cell.descriptionView.titleLabel.text = surveyViewModel.title
-                cell.descriptionView.subtitleLabel.text = surveyViewModel.description
-                cell.backgroundImageView.kf.setImage(with: surveyViewModel.coverImageUrl)
+                cell.bindData(surveyViewModel: surveyViewModel)
+                cell.selectButton.rx.tap
+                    .subscribe(onNext: { [weak self] _ in
+                        guard let self = self else {
+                            return
+                        }
+
+                        Navigator.default.show(
+                            scene: .survey,
+                            sender: self,
+                            transition: .navigation
+                        )
+                    })
+                    .disposed(by: cell.disposeBag)
 
                 return cell
             }

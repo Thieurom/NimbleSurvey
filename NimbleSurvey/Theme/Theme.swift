@@ -22,5 +22,6 @@ struct Theme {
         static let primaryText = UIColor.white
         // swiftlint:disable:next object_literal
         static let primaryBackground = UIColor(red: 21 / 255, green: 21 / 255, blue: 26 / 255, alpha: 1)
+        static let secondaryBackground = UIColor.white
     }
 }
