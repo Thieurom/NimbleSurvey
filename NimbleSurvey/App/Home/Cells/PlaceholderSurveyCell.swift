@@ -61,9 +61,9 @@ extension PlaceholderSurveyCell {
             make.trailing.equalToSuperview().offset(-100)
 
             if #available(iOS 11.0, *) {
-                make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-20)
+                make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-80)
             } else {
-                make.bottom.equalTo(contentView.layoutMarginsGuide.snp.bottomMargin).offset(-20)
+                make.bottom.equalTo(contentView.layoutMarginsGuide.snp.bottomMargin).offset(-80)
             }
         }
 
