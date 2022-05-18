@@ -33,7 +33,9 @@ class SurveyCell: UICollectionViewCell {
         $0.clipsToBounds = true
     }
 
-    private lazy var overlayView = LinearGradientView()
+    private lazy var overlayView = LinearGradientView().apply {
+        $0.alpha = 0.6
+    }
 
     // MARK: - Internals
 
@@ -83,9 +85,9 @@ extension SurveyCell {
             make.trailing.equalToSuperview().offset(-20)
 
             if #available(iOS 11.0, *) {
-                make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-20)
+                make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-50)
             } else {
-                make.bottom.equalTo(layoutMarginsGuide.snp.bottomMargin).offset(-20)
+                make.bottom.equalTo(layoutMarginsGuide.snp.bottomMargin).offset(-50)
             }
         }
 

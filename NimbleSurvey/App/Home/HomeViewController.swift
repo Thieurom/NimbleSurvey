@@ -43,6 +43,8 @@ class HomeViewController: UIViewController {
         $0.padding = 6
         $0.tintColor = .white.withAlphaComponent(0.2)
         $0.currentPageTintColor = .white
+        $0.enableTouchEvents = true
+        $0.delegate = self
     }
 
     // MARK: - Properties
@@ -121,13 +123,13 @@ extension HomeViewController {
 
         pageControl.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
-            make.trailing.lessThanOrEqualToSuperview().offset(-20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.centerX.equalToSuperview()
 
-            // Magic number!!!
             if #available(iOS 11.0, *) {
-                make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-160)
+                make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
             } else {
-                make.bottom.equalTo(view.layoutMarginsGuide.snp.bottomMargin).offset(-160)
+                make.bottom.equalTo(view.layoutMarginsGuide.snp.bottomMargin).offset(-20)
             }
         }
 
@@ -210,8 +212,20 @@ extension HomeViewController {
 // MARK: - UICollectionViewDelegate
 
 extension HomeViewController: UICollectionViewDelegate {
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let index = Int(scrollView.contentOffset.x / view.frame.width)
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // The trick here is using `round` method from Foundation.
+        // This method uses the `.toNearestOrAwayFromZero` rounding rule (Apple docs).
+        // (round(2.4) = 2, round(2.5) = 3)
+        // So when collection view scrolls from one page to another just in the middle,
+        // we immediately update the page control's selected dot.
+        let index = Int(round(scrollView.contentOffset.x / view.frame.width))
         pageControl.set(progress: index, animated: true)
+    }
+}
+
+extension HomeViewController: CHIBasePageControlDelegate {
+    func didTouch(pager: CHIBasePageControl, index: Int) {
+        let indexPath = IndexPath(item: index, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
 }
