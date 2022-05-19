@@ -2,7 +2,10 @@
 "login_password_placeholder" = "Password";
 "login_login_button" = "Log in";
 "login_forgot_password" = "Forgot?";
-"login_fail_unknown" = "Unknown error";
-"login_fail_authen_fail" = "Authentication Failed";
+"login_fail" = "Login Failed";
+"login_fail_unknown" = "There's something wrong. Please try again.";
+"login_fail_invalid_email" = "Please enter a valid email address.";
+"login_fail_authen_fail" = "Email or password is not correct. Please try again.";
+"alert_ok" = "OK";
 "home_today" = "Today";
 "survey_start_survey" = "Start Survey";

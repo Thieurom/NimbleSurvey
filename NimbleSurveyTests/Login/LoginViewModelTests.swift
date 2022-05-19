@@ -91,9 +91,9 @@ class LoginViewModelTests: XCTestCase {
 
         let expected = Recorded.events([
             .next(0, false),
-            .next(200, false),
-            .next(300, false),
-            .next(400, false),
+            .next(200, true),
+            .next(300, true),
+            .next(400, true),
             .next(500, true),
             .next(600, true)
         ])
@@ -156,7 +156,7 @@ class LoginViewModelTests: XCTestCase {
         XCTAssertEqual(loginResult.events, expectedLoginResult)
     }
 
-    func testLoginTriggerFailByNimbleSurveyClient() {
+    func testLoginTriggerFailByInvalidEmail() {
         mockNimbleSurveyClient = MockNimbleSurveyClient()
         mockNimbleSurveyClient.authenticateResult = .failure(.authenticationFailed)
         loginViewModel = LoginViewModel(nimbleSurveyClient: mockNimbleSurveyClient)
@@ -198,13 +198,11 @@ class LoginViewModelTests: XCTestCase {
         scheduler.start()
 
         let expectedRequestInFlight = Recorded.events([
-            .next(0, false),
-            .next(700, true),
-            .next(700, false)
+            .next(0, false)
         ])
 
         let expectedLoginResult = Recorded.events([
-            .next(700, Result<Bool, LoginError>.failure((.init(message: R.string.localizable.login_fail_authen_fail()))))
+            .next(700, Result<Bool, LoginError>.failure((.init(message: R.string.localizable.login_fail_invalid_email()))))
         ])
 
         XCTAssertEqual(requestInFlight.events, expectedRequestInFlight)
@@ -219,17 +217,19 @@ class LoginViewModelTests: XCTestCase {
         let email = scheduler.createColdObservable([
             .next(100, "j"),
             .next(200, "j@"),
-            .next(300, "j@n")
+            .next(300, "j@n"),
+            .next(400, "j@n."),
+            .next(500, "j@n.m")
         ])
 
         let password = scheduler.createColdObservable([
-            .next(400, "1"),
-            .next(500, "12"),
-            .next(600, "123")
+            .next(600, "1"),
+            .next(700, "12"),
+            .next(800, "123")
         ])
 
         let loginTrigger = scheduler.createColdObservable([
-            .next(700, ())
+            .next(900, ())
         ])
 
         let input = LoginViewModel.Input(
@@ -254,12 +254,12 @@ class LoginViewModelTests: XCTestCase {
 
         let expectedRequestInFlight = Recorded.events([
             .next(0, false),
-            .next(700, true),
-            .next(700, false)
+            .next(900, true),
+            .next(900, false)
         ])
 
         let expectedLoginResult = Recorded.events([
-            .next(700, Result<Bool, LoginError>.success(true))
+            .next(900, Result<Bool, LoginError>.success(true))
         ])
 
         XCTAssertEqual(requestInFlight.events, expectedRequestInFlight)

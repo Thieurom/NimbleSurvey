@@ -42,8 +42,7 @@ class LoginViewModel: ViewModelType {
 
         let loginEnabled = formInputs
             .map { email, password in
-                // Naive validation instead of using some complex Regex from StackOverflow!
-                return email.contains("@") && !password.isEmpty
+                return !email.isEmpty && !password.isEmpty
             }
             .startWith(false)
             .asDriver(onErrorJustReturn: false)
@@ -55,6 +54,10 @@ class LoginViewModel: ViewModelType {
             .flatMapLatest { [weak self] email, password -> Single<Result<Bool, LoginError>> in
                 guard let self = self else {
                     return .just(.failure(.init(message: R.string.localizable.login_fail_unknown())))
+                }
+
+                guard self.validateEmailAddress(email) else {
+                    return .just(.failure(.init(message: R.string.localizable.login_fail_invalid_email())))
                 }
 
                 requestInFlight.accept(true)
@@ -76,5 +79,20 @@ class LoginViewModel: ViewModelType {
             loginResult: loginResult,
             requestInFlight: requestInFlight.asDriver()
         )
+    }
+}
+
+// MARK: - Helpers
+
+extension LoginViewModel {
+    private func validateEmailAddress(_ email: String) -> Bool {
+        // There're many, yet complex answers for this on StackOverflow.
+        // I like thesimple one (https://www.advancedswift.com/regular-expressions/)
+        //
+        // One or more characters followed by an "@",
+        // then one or more characters followed by a ".",
+        // and finishing with one or more characters
+        let emailPattern = #"^\S+@\S+\.\S+$"#
+        return email.range(of: emailPattern, options: .regularExpression) != nil
     }
 }
