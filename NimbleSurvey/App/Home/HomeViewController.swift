@@ -52,7 +52,7 @@ class HomeViewController: UIViewController {
     private let viewModel: HomeViewModel
     private var dataSource: RxCollectionViewSectionedReloadDataSource<HomeViewModel.Section>!
 
-    private let viewDidLoadTrigger = PublishSubject<Void>()
+    private let viewDidLoadTrigger = PublishSubject<Date>()
     private let disposeBag = DisposeBag()
 
     // MARK: - Initialization
@@ -75,7 +75,7 @@ class HomeViewController: UIViewController {
         setupViews()
         setupDataSource()
         bindViewModel()
-        viewDidLoadTrigger.onNext(())
+        viewDidLoadTrigger.onNext(Date())
     }
 
     override func viewWillAppear(_ animated: Bool) {

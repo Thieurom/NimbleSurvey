@@ -9,7 +9,7 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
-struct SurveyViewModel {
+struct SurveyViewModel: Equatable {
     let id: String
     let title: String
     let description: String
@@ -28,7 +28,7 @@ class HomeViewModel: ViewModelType {
     // MARK: - Nested types
 
     struct Input {
-        let viewDidLoadTrigger: Observable<Void>
+        let viewDidLoadTrigger: Observable<Date>
     }
 
     struct Output {
@@ -39,7 +39,7 @@ class HomeViewModel: ViewModelType {
         let sections: Driver<[Section]>
     }
 
-    struct Section: SectionModelType {
+    struct Section: SectionModelType, Equatable {
         var items: [SectionItem]
 
         init(items: [Item]) {
@@ -52,7 +52,7 @@ class HomeViewModel: ViewModelType {
         }
     }
 
-    enum SectionItem {
+    enum SectionItem: Equatable {
         case survey(SurveyViewModel)
         case placeholder
     }
@@ -77,6 +77,12 @@ class HomeViewModel: ViewModelType {
         let placeholder = Observable.just([SectionItem.placeholder])
         let requestInFlight = PublishSubject<Bool>()
 
+        let subtile = input.viewDidLoadTrigger
+            .compactMap { [weak self] date -> String? in
+                return self?.dateFormater.string(from: date).uppercased()
+            }
+            .take(1)
+
         let surveys = input.viewDidLoadTrigger
             .flatMapLatest { [weak self] _ -> Observable<[Survey]> in
                 guard let self = self else {
@@ -89,6 +95,7 @@ class HomeViewModel: ViewModelType {
                     .surveyList(pageNumber: 1, pageSize: 10)
                     .do(onSuccess: { _ in requestInFlight.onNext(false) })
                     .asObservable()
+                    .take(1)
             }
             .map { Array($0.prefix(5)) } // Show only top five surveys
             .map {
@@ -96,7 +103,7 @@ class HomeViewModel: ViewModelType {
             }
 
         return Output(
-            subtitle: .just(dateFormater.string(from: Date()).uppercased()).asDriver(),
+            subtitle: subtile.asDriver(onErrorJustReturn: ""),
             headline: .just(R.string.localizable.home_today()).asDriver(),
             avatarImage: .just(R.image.avatar()).asDriver(),
             requestInFlight: requestInFlight.asDriver(onErrorJustReturn: true),
