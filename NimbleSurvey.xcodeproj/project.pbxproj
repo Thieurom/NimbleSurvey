@@ -56,6 +56,8 @@
 		D8C1A339282F51A100803A86 /* SurveyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A338282F51A100803A86 /* SurveyDetailViewController.swift */; };
 		D8C1A33C282F520500803A86 /* SurveyDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A33B282F520500803A86 /* SurveyDetailViewModel.swift */; };
 		D8C1A33E282F9D8F00803A86 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C1A33D282F9D8F00803A86 /* LoadingButton.swift */; };
+		D8E13B2A28369F120035D997 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E13B2928369F120035D997 /* HomeViewModelTests.swift */; };
+		D8E13B2D28369FAF0035D997 /* SurveyDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E13B2C28369FAF0035D997 /* SurveyDetailViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +127,8 @@
 		D8C1A338282F51A100803A86 /* SurveyDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyDetailViewController.swift; sourceTree = "<group>"; };
 		D8C1A33B282F520500803A86 /* SurveyDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyDetailViewModel.swift; sourceTree = "<group>"; };
 		D8C1A33D282F9D8F00803A86 /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
+		D8E13B2928369F120035D997 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
+		D8E13B2C28369FAF0035D997 /* SurveyDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyDetailViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,8 +191,11 @@
 			isa = PBXGroup;
 			children = (
 				D8492D3F282973FA004F949D /* Login */,
+				D8E13B2B28369F190035D997 /* Home */,
+				D8E13B2E28369FD50035D997 /* Survey */,
 				D8492D3728296F5E004F949D /* NimbleSurveyAPI */,
 				D8492D3A28296FDA004F949D /* NimbleSurveyClient */,
+				D8E13B2828369EFC0035D997 /* MockObjects */,
 				D8C1A336282ED76600803A86 /* Credentials+Extensions.swift */,
 			);
 			path = NimbleSurveyTests;
@@ -303,7 +310,6 @@
 			isa = PBXGroup;
 			children = (
 				D8492D33282964A7004F949D /* NimbleSurveyAPITests.swift */,
-				D8492D3528296536004F949D /* MockURLProtocol.swift */,
 			);
 			path = NimbleSurveyAPI;
 			sourceTree = "<group>";
@@ -312,8 +318,6 @@
 			isa = PBXGroup;
 			children = (
 				D8492D3828296FD3004F949D /* NimbleSurveyClientTests.swift */,
-				D8492D3B2829701A004F949D /* MockNimbleSurveyAPI.swift */,
-				D8C1A334282ED1D600803A86 /* MockCredentialStorage.swift */,
 			);
 			path = NimbleSurveyClient;
 			sourceTree = "<group>";
@@ -322,7 +326,6 @@
 			isa = PBXGroup;
 			children = (
 				D8492D3D282973F5004F949D /* LoginViewModelTests.swift */,
-				D8C1A32B282D649700803A86 /* MockNimbleSurveyClient.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -377,6 +380,33 @@
 			children = (
 				D8C1A338282F51A100803A86 /* SurveyDetailViewController.swift */,
 				D8C1A33B282F520500803A86 /* SurveyDetailViewModel.swift */,
+			);
+			path = Survey;
+			sourceTree = "<group>";
+		};
+		D8E13B2828369EFC0035D997 /* MockObjects */ = {
+			isa = PBXGroup;
+			children = (
+				D8C1A32B282D649700803A86 /* MockNimbleSurveyClient.swift */,
+				D8492D3528296536004F949D /* MockURLProtocol.swift */,
+				D8492D3B2829701A004F949D /* MockNimbleSurveyAPI.swift */,
+				D8C1A334282ED1D600803A86 /* MockCredentialStorage.swift */,
+			);
+			path = MockObjects;
+			sourceTree = "<group>";
+		};
+		D8E13B2B28369F190035D997 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				D8E13B2928369F120035D997 /* HomeViewModelTests.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		D8E13B2E28369FD50035D997 /* Survey */ = {
+			isa = PBXGroup;
+			children = (
+				D8E13B2C28369FAF0035D997 /* SurveyDetailViewModelTests.swift */,
 			);
 			path = Survey;
 			sourceTree = "<group>";
@@ -675,7 +705,9 @@
 				D8492D3E282973F5004F949D /* LoginViewModelTests.swift in Sources */,
 				D8492D3928296FD3004F949D /* NimbleSurveyClientTests.swift in Sources */,
 				D8C1A335282ED1D600803A86 /* MockCredentialStorage.swift in Sources */,
+				D8E13B2D28369FAF0035D997 /* SurveyDetailViewModelTests.swift in Sources */,
 				D8492D34282964A7004F949D /* NimbleSurveyAPITests.swift in Sources */,
+				D8E13B2A28369F120035D997 /* HomeViewModelTests.swift in Sources */,
 				D8C1A32C282D649700803A86 /* MockNimbleSurveyClient.swift in Sources */,
 				D8492D3C2829701A004F949D /* MockNimbleSurveyAPI.swift in Sources */,
 				D8492D3628296536004F949D /* MockURLProtocol.swift in Sources */,

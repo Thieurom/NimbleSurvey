@@ -9,7 +9,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-struct LoginError: Error {
+struct LoginError: Error, Equatable {
     let message: String
 }
 
@@ -54,7 +54,7 @@ class LoginViewModel: ViewModelType {
             .withLatestFrom(formInputs)
             .flatMapLatest { [weak self] email, password -> Single<Result<Bool, LoginError>> in
                 guard let self = self else {
-                    return .error(LoginError(message: R.string.localizable.login_fail_unknown()))
+                    return .just(.failure(.init(message: R.string.localizable.login_fail_unknown())))
                 }
 
                 requestInFlight.accept(true)
