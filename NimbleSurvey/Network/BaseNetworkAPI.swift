@@ -7,6 +7,7 @@
 
 import Alamofire
 import Foundation
+import JSONAPI
 import RxAlamofire
 import RxSwift
 
@@ -91,7 +92,9 @@ open class BaseNetworkAPI<Target: TargetType>: NetworkAPIProtocol {
                 switch error {
                 case is URLError:
                     throw APIError.network
-                case is DecodingError:
+                case is DecodingError, is DocumentDecodingError:
+                    // Include `DocumentDecodingError` which is from a 3rd-party lib
+                    // may be not a good idea!
                     throw APIError.parsing
                 default:
                     throw (error as? APIError) ?? APIError.unknown
