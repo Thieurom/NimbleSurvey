@@ -14,6 +14,10 @@ target 'NimbleSurvey' do
   pod 'Alamofire'
   pod 'RxAlamofire'
 
+  # Parsing
+  pod 'Poly', :git => 'https://github.com/mattpolzin/Poly.git'
+  pod 'MP-JSONAPI', :git => 'https://github.com/mattpolzin/JSONAPI.git'
+
   # Secure storage
   pod 'KeychainAccess'
 
