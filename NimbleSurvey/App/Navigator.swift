@@ -11,12 +11,14 @@ enum Scene {
     case login
     case home
     case survey
+    case alert(title: String, message: String)
 }
 
 enum Transition {
     case root
     case navigation
     case modal
+    case alert
 }
 
 protocol Navigatable: AnyObject {
@@ -41,6 +43,8 @@ class Navigator: Navigatable {
             sender?.navigationController?.pushViewController(viewController, animated: true)
         case .modal:
             break
+        case .alert:
+            sender?.present(viewController, animated: true)
         }
     }
 
@@ -67,6 +71,13 @@ class Navigator: Navigatable {
         case .survey:
             let surveyDetailViewModel = SurveyDetailViewModel(nimbleSurveyClient: nimbleSurveyClient)
             return SurveyDetailViewController(viewModel: surveyDetailViewModel)
+
+        case let .alert(title, message):
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: R.string.localizable.alert_ok(), style: .default)
+            alertController.addAction(action)
+            
+            return alertController
         }
     }
 }

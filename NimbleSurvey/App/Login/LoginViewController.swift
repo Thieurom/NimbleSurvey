@@ -279,7 +279,11 @@ extension LoginViewController {
             .disposed(by: disposeBag)
 
         output.loginResult
-            .drive(onNext: { result in
+            .drive(onNext: { [weak self] result in
+                guard let self = self else {
+                    return
+                }
+
                 switch result {
                 case .success:
                     Navigator.default.show(
@@ -289,8 +293,11 @@ extension LoginViewController {
                     )
 
                 case.failure(let error):
-                    // TODO: Show toast
-                    print("Fail: \(error)")
+                    Navigator.default.show(
+                        scene: .alert(title: R.string.localizable.login_fail(), message: error.message),
+                        sender: self,
+                        transition: .alert
+                    )
                 }
             })
             .disposed(by: disposeBag)
@@ -317,5 +324,10 @@ extension LoginViewController {
         )
 
         return textField
+    }
+
+    private func alertViewController(title: String, message: String) -> UIAlertController {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        return alert
     }
 }
