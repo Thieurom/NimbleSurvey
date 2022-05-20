@@ -5,6 +5,7 @@
 //  Created by Doan Le Thieu on 11/05/2022.
 //
 
+import Foundation
 import RxCocoa
 import RxDataSources
 import RxSwift
@@ -13,13 +14,20 @@ struct SurveyViewModel: Equatable {
     let id: String
     let title: String
     let description: String
+    let thumbnailUrl: URL?
     let coverImageUrl: URL?
 
     init(survey: Survey) {
         self.id = survey.id
         self.title = survey.title
         self.description = survey.description
-        self.coverImageUrl = survey.coverImageUrl
+        self.thumbnailUrl = survey.coverImageUrl
+
+        if let urlString = survey.coverImageUrl?.absoluteString {
+            self.coverImageUrl = URL(string: urlString + "l")
+        } else {
+            self.coverImageUrl = survey.coverImageUrl
+        }
     }
 }
 

@@ -9,8 +9,21 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-struct LoginError: Error, Equatable {
-    let message: String
+enum LoginError: Error, Equatable {
+    case invalidEmail
+    case authenticationFail
+    case unknown
+
+    var message: String {
+        switch self {
+        case .invalidEmail:
+            return R.string.localizable.login_fail_invalid_email()
+        case .authenticationFail:
+            return R.string.localizable.login_fail_authen_fail()
+        case .unknown:
+            return R.string.localizable.unknown_error()
+        }
+    }
 }
 
 class LoginViewModel: ViewModelType {
@@ -53,11 +66,11 @@ class LoginViewModel: ViewModelType {
             .withLatestFrom(formInputs)
             .flatMapLatest { [weak self] email, password -> Single<Result<Bool, LoginError>> in
                 guard let self = self else {
-                    return .just(.failure(.init(message: R.string.localizable.login_fail_unknown())))
+                    return .just(.failure(.unknown))
                 }
 
                 guard self.validateEmailAddress(email) else {
-                    return .just(.failure(.init(message: R.string.localizable.login_fail_invalid_email())))
+                    return .just(.failure(.invalidEmail))
                 }
 
                 requestInFlight.accept(true)
@@ -67,12 +80,18 @@ class LoginViewModel: ViewModelType {
                         requestInFlight.accept(false)
                     })
                     .andThen(.just(.success(true)))
-                    .catch { _ in
+                    .catch { error in
                         requestInFlight.accept(false)
-                        return .just(.failure(.init(message: R.string.localizable.login_fail_authen_fail())))
+
+                        switch error {
+                        case NimbleSurveyError.authenticationFailed:
+                            return .just(.failure(.authenticationFail))
+                        default:
+                            return .just(.failure(.unknown))
+                        }
                     }
             }
-            .asDriver(onErrorJustReturn: .failure(.init(message: R.string.localizable.login_fail_authen_fail())))
+            .asDriver(onErrorJustReturn: .failure(.unknown))
 
         return Output(
             loginEnabled: loginEnabled,

@@ -10,9 +10,9 @@ import Foundation
 import RxSwift
 
 class MockNimbleSurveyAPI: NimbleSurveyAPIProtocol {
-    var loginResult: Result<Credentials, NimbleSurveyError>?
-    var refreshTokenResult: Result<Credentials, NimbleSurveyError>?
-    var surveyListResult: Result<[Survey], NimbleSurveyError>?
+    var loginResult: Result<Credentials, APIError>?
+    var refreshTokenResult: Result<Credentials, APIError>?
+    var surveyListResult: Result<[Survey], APIError>?
 
     func login(email: String, password: String, clientId: String, clientSecret: String) -> Single<Credentials> {
         switch loginResult {
@@ -21,7 +21,7 @@ class MockNimbleSurveyAPI: NimbleSurveyAPIProtocol {
         case .failure(let error):
             return .error(error)
         case .none:
-            return .error(NimbleSurveyError.authenticationFailed)
+            return .error(APIError.unknown)
         }
     }
 
@@ -32,7 +32,7 @@ class MockNimbleSurveyAPI: NimbleSurveyAPIProtocol {
         case .failure(let error):
             return .error(error)
         case .none:
-            return .error(NimbleSurveyError.authenticationFailed)
+            return .error(APIError.unknown)
         }
     }
 

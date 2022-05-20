@@ -13,6 +13,9 @@ import RxSwift
 
 enum APIError: Error {
     case network
+    case badRequest
+    case unAuthorized
+    case notFound
     case parsing
     case unknown
 }
@@ -76,11 +79,18 @@ open class BaseNetworkAPI<Target: TargetType>: NetworkAPIProtocol {
                 #endif
             })
             .map { response, data in
-                guard (200..<300) ~= response.statusCode else {
+                switch response.statusCode {
+                case 200..<300:
+                    return data
+                case 400:
+                    throw APIError.badRequest
+                case 401:
+                    throw APIError.unAuthorized
+                case 404:
+                    throw APIError.notFound
+                default:
                     throw APIError.network
                 }
-
-                return data
             }
             .decode(type: M.self, decoder: jsonDecoder)
             .catch { error in

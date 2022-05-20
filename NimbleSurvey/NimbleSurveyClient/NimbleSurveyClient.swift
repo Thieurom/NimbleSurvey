@@ -11,7 +11,7 @@ import RxSwift
 enum NimbleSurveyError: Error {
     case unAuthorized
     case authenticationFailed
-    case failedToGetSurveys
+    case unknown
 }
 
 /// A simple client that interacts with Nimble Survey Web (https://github.com/nimblehq/nimble-survey-web)
@@ -55,8 +55,15 @@ class NimbleSurveyClient: NimbleSurveyClientType {
             _ = self?.credentialsStorage.store(credentials: $0, withKey: Self.storageKey)
         })
         .asCompletable()
-        .catch { _ in
-            throw NimbleSurveyError.authenticationFailed
+        .catch { error in
+            switch error {
+            case APIError.unAuthorized:
+                throw NimbleSurveyError.unAuthorized
+            case APIError.badRequest:
+                throw NimbleSurveyError.authenticationFailed
+            default:
+                throw NimbleSurveyError.unknown
+            }
         }
     }
 
@@ -82,8 +89,13 @@ class NimbleSurveyClient: NimbleSurveyClientType {
 
                 return self.nimbleSurveyAPI.surveyList(pageNumber: pageNumber, pageSize: pageSize)
             }
-            .catch { _ in
-                throw NimbleSurveyError.failedToGetSurveys
+            .catch { error in
+                switch error {
+                case APIError.unAuthorized:
+                    throw NimbleSurveyError.unAuthorized
+                default:
+                    throw NimbleSurveyError.unknown
+                }
             }
     }
 }
