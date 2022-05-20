@@ -149,7 +149,7 @@ class LoginViewModelTests: XCTestCase {
         ])
 
         let expectedLoginResult = Recorded.events([
-            .next(700, Result<Bool, LoginError>.failure((.init(message: R.string.localizable.login_fail_unknown()))))
+            .next(700, Result<Bool, LoginError>.failure(.unknown))
         ])
 
         XCTAssertEqual(requestInFlight.events, expectedRequestInFlight)
@@ -158,7 +158,6 @@ class LoginViewModelTests: XCTestCase {
 
     func testLoginTriggerFailByInvalidEmail() {
         mockNimbleSurveyClient = MockNimbleSurveyClient()
-        mockNimbleSurveyClient.authenticateResult = .failure(.authenticationFailed)
         loginViewModel = LoginViewModel(nimbleSurveyClient: mockNimbleSurveyClient)
 
         let email = scheduler.createColdObservable([
@@ -202,7 +201,121 @@ class LoginViewModelTests: XCTestCase {
         ])
 
         let expectedLoginResult = Recorded.events([
-            .next(700, Result<Bool, LoginError>.failure((.init(message: R.string.localizable.login_fail_invalid_email()))))
+            .next(700, Result<Bool, LoginError>.failure(.invalidEmail))
+        ])
+
+        XCTAssertEqual(requestInFlight.events, expectedRequestInFlight)
+        XCTAssertEqual(loginResult.events, expectedLoginResult)
+    }
+
+    func testLoginTriggerFailByWrongInput() {
+        mockNimbleSurveyClient = MockNimbleSurveyClient()
+        mockNimbleSurveyClient.authenticateResult = .failure(.authenticationFailed)
+        loginViewModel = LoginViewModel(nimbleSurveyClient: mockNimbleSurveyClient)
+
+        let email = scheduler.createColdObservable([
+            .next(100, "j"),
+            .next(200, "j@"),
+            .next(300, "j@a"),
+            .next(400, "j@a."),
+            .next(500, "j@a.b")
+        ])
+
+        let password = scheduler.createColdObservable([
+            .next(600, "1"),
+            .next(700, "12"),
+            .next(800, "123")
+        ])
+
+        let loginTrigger = scheduler.createColdObservable([
+            .next(900, ())
+        ])
+
+        let input = LoginViewModel.Input(
+            email: email.asObservable(),
+            password: password.asObservable(),
+            loginTrigger: loginTrigger.asObservable()
+        )
+
+        let output = loginViewModel.transform(input: input)
+        let requestInFlight = scheduler.createObserver(Bool.self)
+        let loginResult = scheduler.createObserver(Result<Bool, LoginError>.self)
+
+        output.requestInFlight
+            .drive(requestInFlight)
+            .disposed(by: disposeBag)
+
+        output.loginResult
+            .drive(loginResult)
+            .disposed(by: disposeBag)
+
+        scheduler.start()
+
+        let expectedRequestInFlight = Recorded.events([
+            .next(0, false),
+            .next(900, true),
+            .next(900, false)
+        ])
+
+        let expectedLoginResult = Recorded.events([
+            .next(900, Result<Bool, LoginError>.failure(.authenticationFail))
+        ])
+
+        XCTAssertEqual(requestInFlight.events, expectedRequestInFlight)
+        XCTAssertEqual(loginResult.events, expectedLoginResult)
+    }
+
+    func testLoginTriggerFailByOtherReason() {
+        mockNimbleSurveyClient = MockNimbleSurveyClient()
+        mockNimbleSurveyClient.authenticateResult = .failure(.unknown)
+        loginViewModel = LoginViewModel(nimbleSurveyClient: mockNimbleSurveyClient)
+
+        let email = scheduler.createColdObservable([
+            .next(100, "j"),
+            .next(200, "j@"),
+            .next(300, "j@a"),
+            .next(400, "j@a."),
+            .next(500, "j@a.b")
+        ])
+
+        let password = scheduler.createColdObservable([
+            .next(600, "1"),
+            .next(700, "12"),
+            .next(800, "123")
+        ])
+
+        let loginTrigger = scheduler.createColdObservable([
+            .next(900, ())
+        ])
+
+        let input = LoginViewModel.Input(
+            email: email.asObservable(),
+            password: password.asObservable(),
+            loginTrigger: loginTrigger.asObservable()
+        )
+
+        let output = loginViewModel.transform(input: input)
+        let requestInFlight = scheduler.createObserver(Bool.self)
+        let loginResult = scheduler.createObserver(Result<Bool, LoginError>.self)
+
+        output.requestInFlight
+            .drive(requestInFlight)
+            .disposed(by: disposeBag)
+
+        output.loginResult
+            .drive(loginResult)
+            .disposed(by: disposeBag)
+
+        scheduler.start()
+
+        let expectedRequestInFlight = Recorded.events([
+            .next(0, false),
+            .next(900, true),
+            .next(900, false)
+        ])
+
+        let expectedLoginResult = Recorded.events([
+            .next(900, Result<Bool, LoginError>.failure(.unknown))
         ])
 
         XCTAssertEqual(requestInFlight.events, expectedRequestInFlight)
@@ -217,9 +330,9 @@ class LoginViewModelTests: XCTestCase {
         let email = scheduler.createColdObservable([
             .next(100, "j"),
             .next(200, "j@"),
-            .next(300, "j@n"),
-            .next(400, "j@n."),
-            .next(500, "j@n.m")
+            .next(300, "j@a"),
+            .next(400, "j@a."),
+            .next(500, "j@a.b")
         ])
 
         let password = scheduler.createColdObservable([

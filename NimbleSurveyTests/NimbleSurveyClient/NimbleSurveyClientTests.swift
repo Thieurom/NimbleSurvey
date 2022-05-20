@@ -48,7 +48,7 @@ class NimbleSurveyClientTests: XCTestCase {
     // MARK: - Test authenticate
 
     func testAuthenticateFail() {
-        mockNimbleSurveyAPI.loginResult = .failure(.authenticationFailed)
+        mockNimbleSurveyAPI.loginResult = .failure(.badRequest)
         nimbleSurveyClient.nimbleSurveyAPI = mockNimbleSurveyAPI
 
         let result = nimbleSurveyClient.authenticate(email: email, password: password)
@@ -158,7 +158,7 @@ class NimbleSurveyClientTests: XCTestCase {
 
         mockCredentialsStorage.retrieveResult = credentials
         mockNimbleSurveyAPI.refreshTokenResult = .success(credentials)
-        mockNimbleSurveyAPI.surveyListResult = .failure(.failedToGetSurveys)
+        mockNimbleSurveyAPI.surveyListResult = .failure(.unknown)
         nimbleSurveyClient.nimbleSurveyAPI = mockNimbleSurveyAPI
 
         let result = nimbleSurveyClient.surveyList(pageNumber: 1, pageSize: 10)
@@ -184,7 +184,7 @@ class NimbleSurveyClientTests: XCTestCase {
         }
 
         mockCredentialsStorage.retrieveResult = credentials
-        mockNimbleSurveyAPI.surveyListResult = .failure(.failedToGetSurveys)
+        mockNimbleSurveyAPI.surveyListResult = .failure(.unknown)
         nimbleSurveyClient.nimbleSurveyAPI = mockNimbleSurveyAPI
 
         let result = nimbleSurveyClient.surveyList(pageNumber: 1, pageSize: 10)

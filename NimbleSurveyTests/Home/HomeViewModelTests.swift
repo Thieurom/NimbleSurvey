@@ -111,7 +111,7 @@ class HomeViewModelTests: XCTestCase {
         }
 
         mockNimbleSurveyClient = MockNimbleSurveyClient()
-        mockNimbleSurveyClient.surveyListResult = .failure(.failedToGetSurveys)
+        mockNimbleSurveyClient.surveyListResult = .failure(.unknown)
         homeViewModel = HomeViewModel(nimbleSurveyClient: mockNimbleSurveyClient)
 
         let viewDidLoadTrigger = scheduler.createColdObservable([
@@ -156,7 +156,7 @@ class HomeViewModelTests: XCTestCase {
         }
 
         mockNimbleSurveyClient = MockNimbleSurveyClient()
-        mockNimbleSurveyClient.surveyListResult = .failure(.failedToGetSurveys)
+        mockNimbleSurveyClient.surveyListResult = .failure(.unknown)
         homeViewModel = HomeViewModel(nimbleSurveyClient: mockNimbleSurveyClient)
 
         let viewDidLoadTrigger = scheduler.createColdObservable([
@@ -186,7 +186,7 @@ class HomeViewModelTests: XCTestCase {
         let expectedRequestInFlight = Recorded<Event<Bool>>.events([])
 
         let expectedSections = Recorded.events([
-            .next(0, [HomeViewModel.Section(items: [HomeViewModel.SectionItem.placeholder])]),
+            .next(0, [HomeViewModel.Section(items: [HomeViewModel.SectionItem.placeholder])])
         ])
 
         XCTAssertEqual(requestInFlight.events, expectedRequestInFlight)
