@@ -81,52 +81,60 @@ class NimbleSurveyClient: NimbleSurveyClientType {
     ///   - pageSize: page number
     /// - Returns: List of surveys
     func surveyList(pageNumber: Int, pageSize: Int) -> Single<[Survey]> {
-        return validCredential()
-            .flatMap { [weak self] _ in
-                guard let self = self else {
-                    return .error(NimbleSurveyError.unAuthorized)
-                }
+        return makeRequest { [weak self] in
+            guard let self = self else {
+                return .error(NimbleSurveyError.unknown)
+            }
 
-                return self.nimbleSurveyAPI.surveyList(pageNumber: pageNumber, pageSize: pageSize)
-            }
-            .catch { error in
-                switch error {
-                case APIError.unAuthorized:
-                    throw NimbleSurveyError.unAuthorized
-                default:
-                    throw NimbleSurveyError.unknown
-                }
-            }
+            return self.nimbleSurveyAPI.surveyList(
+                pageNumber: pageNumber,
+                pageSize: pageSize
+            )
+        }
     }
 }
 
 // MARK: - Internal
 
 extension NimbleSurveyClient {
-    // Get the valid credentials.
-    // If there's no existing one, fail out.
-    // Return one if it's still valid, otherwise request a new one.
-    // TODO: Make this method thread-safe
-    private func validCredential() -> Single<Credentials> {
+    private func makeRequest<M>(_ request: @escaping () -> Single<M>) -> Single<M> {
         guard let credentials = credentialsStorage.retrieveCredentials(fromKey: Self.storageKey) else {
             return .error(NimbleSurveyError.unAuthorized)
         }
 
-        if credentials.validUntil > Date() {
-            return .just(credentials)
+        // When retry, we want to make a new request, because it'll be configed
+        // with new access token.
+        // If we subscribe the old one like `request.retry`,
+        // => continue with obsolete access token => infinite loop.
+        // That's why we use Single factory here.
+        return Single.deferred {
+            return request()
         }
+        .retry { [weak self] error -> Observable<Credentials> in
+            return error
+                .flatMap { [weak self] error -> Observable<Credentials> in
+                    guard let self = self else {
+                        return .empty()
+                    }
 
-        return nimbleSurveyAPI.refreshToken(
-            refreshToken: credentials.refreshToken,
-            clientId: clientId,
-            clientSecret: clientSecret
-        )
-        .do(onSuccess: { [weak self] in
-            // Store newly-refresh credentials
-            _ = self?.credentialsStorage.store(credentials: $0, withKey: Self.storageKey)
-        }, onError: { [weak self] _ in
-            // Clear the old credentials in case fail refreshing new one.
-            _ = self?.credentialsStorage.clearCredentials(ofKey: Self.storageKey)
-        })
+                    if case APIError.unAuthorized = error {
+                        return self.nimbleSurveyAPI.refreshToken(
+                            refreshToken: credentials.refreshToken,
+                            clientId: self.clientId,
+                            clientSecret: self.clientSecret
+                        )
+                        .do(onSuccess: { [weak self] in
+                            // Store newly-refresh credentials
+                            _ = self?.credentialsStorage.store(credentials: $0, withKey: Self.storageKey)
+                        }, onError: { [weak self] _ in
+                            // Clear the old credentials in case fail refreshing new one.
+                            _ = self?.credentialsStorage.clearCredentials(ofKey: Self.storageKey)
+                        })
+                        .asObservable()
+                    }
+
+                    return Observable.error(error)
+                }
+        }
     }
 }
