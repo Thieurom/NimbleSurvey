@@ -8,7 +8,8 @@ target 'NimbleSurvey' do
   pod 'RxDataSources', '~> 5.0'
   pod 'Kingfisher'
   pod 'SkeletonView'
-  pod 'CHIPageControl/Aji'
+  pod "FlexiblePageControl"
+  pod 'Toast-Swift', '~> 5.0.1'
   
   # Network
   pod 'Alamofire'

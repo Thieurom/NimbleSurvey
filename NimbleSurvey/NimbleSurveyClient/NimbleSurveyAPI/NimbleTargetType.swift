@@ -61,8 +61,8 @@ enum NimbleTargetType: TargetType, AccessTokenAuthorizable {
 
         case let .surveyList(pageNumber, pageSize):
             return [
-                "page_number": pageNumber,
-                "page_size": pageSize
+                "page[number]": pageNumber,
+                "page[size]": pageSize
             ]
         }
     }

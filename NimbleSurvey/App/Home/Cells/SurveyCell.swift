@@ -85,9 +85,9 @@ extension SurveyCell {
             make.trailing.equalToSuperview().offset(-20)
 
             if #available(iOS 11.0, *) {
-                make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-50)
+                make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-80)
             } else {
-                make.bottom.equalTo(layoutMarginsGuide.snp.bottomMargin).offset(-50)
+                make.bottom.equalTo(layoutMarginsGuide.snp.bottomMargin).offset(-80)
             }
         }
 
