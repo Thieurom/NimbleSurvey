@@ -5,12 +5,13 @@
 //  Created by Doan Le Thieu on 10/05/2022.
 //
 
-import CHIPageControl
+import FlexiblePageControl
 import Kingfisher
 import RxDataSources
 import RxSwift
 import SkeletonView
 import SnapKit
+import Toast_Swift
 import UIKit
 
 class HomeViewController: UIViewController {
@@ -38,13 +39,55 @@ class HomeViewController: UIViewController {
         return collectionView
     }()
 
-    lazy var pageControl = CHIPageControlAji().apply {
-        $0.radius = 4
-        $0.padding = 6
-        $0.tintColor = .white.withAlphaComponent(0.2)
-        $0.currentPageTintColor = .white
-        $0.enableTouchEvents = true
-        $0.delegate = self
+    lazy var pageControl = FlexiblePageControl().apply {
+        $0.pageIndicatorTintColor = .white.withAlphaComponent(0.5)
+        $0.currentPageIndicatorTintColor = .white
+        $0.hidesForSinglePage = true
+
+        let config = FlexiblePageControl.Config(
+            displayCount: 10,
+            dotSize: 8,
+            dotSpace: 8,
+            smallDotSizeRatio: 0.5,
+            mediumDotSizeRatio: 0.7
+        )
+
+        $0.setConfig(config)
+    }
+
+    lazy var errorLabel = UILabel().apply {
+        $0.font = Theme.Font.body
+        $0.textColor = Theme.Color.primaryText.withAlphaComponent(0.5)
+        $0.textAlignment = .center
+        $0.numberOfLines = 0
+    }
+
+    lazy var retryButton = UIButton(type: .system).apply {
+        $0.backgroundColor = Theme.Color.secondaryBackground
+        $0.setTitleColor(Theme.Color.primaryBackground, for: .normal)
+        $0.setTitle(R.string.localizable.retry_button().uppercased(), for: .normal)
+        $0.titleLabel?.font = Theme.Font.title
+        $0.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        $0.roundingCorner(20)
+    }
+
+    lazy var loadMoreButton = LoadingButton().apply {
+        $0.setTitle(R.string.localizable.load_more_button(), for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        $0.titleLabel?.font = Theme.Font.title
+        $0.indicatorStyle = .white
+        $0.alpha = 0
+    }
+
+    private lazy var errorView = UIStackView(
+        arrangedSubviews: [
+            errorLabel,
+            retryButton
+        ]
+    ).apply {
+        $0.axis = .vertical
+        $0.spacing = 16
+        $0.alignment = .center
     }
 
     // MARK: - Properties
@@ -100,7 +143,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController {
     private func setupViews() {
         // Add views to hierarchy
-        view.addSubviews(collectionView, headerView, pageControl)
+        view.addSubviews(collectionView, headerView, pageControl, errorView, loadMoreButton)
 
         // Constraint
         headerView.snp.makeConstraints { make in
@@ -122,8 +165,7 @@ extension HomeViewController {
         collectionView.register(PlaceholderSurveyCell.self, forCellWithReuseIdentifier: PlaceholderSurveyCell.identifier)
 
         pageControl.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
+            make.leading.greaterThanOrEqualToSuperview().offset(20)
             make.centerX.equalToSuperview()
 
             if #available(iOS 11.0, *) {
@@ -132,6 +174,25 @@ extension HomeViewController {
                 make.bottom.equalTo(view.layoutMarginsGuide.snp.bottomMargin).offset(-20)
             }
         }
+
+        retryButton.snp.makeConstraints { make in
+            make.height.equalTo(40)
+        }
+
+        errorView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(24)
+            make.trailing.equalToSuperview().offset(-24)
+            make.centerX.centerY.equalToSuperview()
+        }
+
+        loadMoreButton.snp.makeConstraints { make in
+            make.centerY.equalTo(pageControl)
+            make.centerX.equalTo(view.snp.trailing).offset(-48)
+            make.leading.equalTo(pageControl.snp.trailing)
+        }
+
+        loadMoreButton.snp.contentHuggingHorizontalPriority = UILayoutPriority.defaultLow.rawValue + 1
+        loadMoreButton.snp.contentCompressionResistanceHorizontalPriority = UILayoutPriority.defaultHigh.rawValue + 1
 
         automaticallyAdjustsScrollViewInsets = false
     }
@@ -178,7 +239,12 @@ extension HomeViewController {
 
 extension HomeViewController {
     private func bindViewModel() {
-        let input = HomeViewModel.Input(viewDidLoadTrigger: viewDidLoadTrigger.asObservable())
+        let input = HomeViewModel.Input(
+            viewDidLoadTrigger: viewDidLoadTrigger.asObservable(),
+            loadMoreTrigger: loadMoreButton.rx.tap.asObservable(),
+            retryTrigger: retryButton.rx.tap.asObservable()
+        )
+
         let output = viewModel.transform(input: input)
 
         output.subtitle
@@ -193,8 +259,21 @@ extension HomeViewController {
             .drive(headerView.imageView.rx.image)
             .disposed(by: disposeBag)
 
-        output.requestInFlight
+        output.showingHeaderView
             .drive(headerView.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        output.loadingMore
+            .drive(onNext: { [weak self] isLoadingMore in
+                self?.loadMoreButton.isUserInteractionEnabled = !isLoadingMore
+
+                if isLoadingMore {
+                    self?.loadMoreButton.showLoading()
+                } else {
+                    self?.loadMoreButton.hideLoading()
+                    self?.showLoadMoreButton(false)
+                }
+            })
             .disposed(by: disposeBag)
 
         output.sections
@@ -205,6 +284,30 @@ extension HomeViewController {
             .compactMap(\.first)
             .map(\.items.count)
             .drive(pageControl.rx.numberOfPages)
+            .disposed(by: disposeBag)
+
+        output.enableRetry
+            .drive(onNext: { [weak self] in
+                self?.errorView.isHidden = !$0
+                self?.errorView.isUserInteractionEnabled = $0
+            })
+            .disposed(by: disposeBag)
+
+        output.error
+            .drive(onNext: { [weak self] error in
+                switch error {
+                case .unAuthorized:
+                    Navigator.default.show(
+                        scene: .login,
+                        sender: nil,
+                        transition: .root
+                    )
+                case .failToRefresh:
+                    self?.errorLabel.text = error.message
+                case .failToLoadmore:
+                    self?.view.makeToast(error.message)
+                }
+            })
             .disposed(by: disposeBag)
     }
 }
@@ -218,14 +321,19 @@ extension HomeViewController: UICollectionViewDelegate {
         // (round(2.4) = 2, round(2.5) = 3)
         // So when collection view scrolls from one page to another just in the middle,
         // we immediately update the page control's selected dot.
-        let index = Int(round(scrollView.contentOffset.x / view.frame.width))
-        pageControl.set(progress: index, animated: true)
+        let index = Int(round(scrollView.contentOffset.x / scrollView.frame.width))
+        pageControl.setCurrentPage(at: index, animated: true)
+        showLoadMoreButton(index == pageControl.numberOfPages - 1)
     }
 }
 
-extension HomeViewController: CHIBasePageControlDelegate {
-    func didTouch(pager: CHIBasePageControl, index: Int) {
-        let indexPath = IndexPath(item: index, section: 0)
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+// MARK: - Helpers
+
+extension HomeViewController {
+    private func showLoadMoreButton(_ showing: Bool) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn) { [weak self] in
+            self?.loadMoreButton.alpha = showing ? 1 : 0
+            self?.loadMoreButton.transform = showing ? .identity : .init(translationX: 68, y: 0)
+        }
     }
 }

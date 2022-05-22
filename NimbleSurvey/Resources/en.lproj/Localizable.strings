@@ -6,7 +6,10 @@
 "login_fail_invalid_email" = "Please enter a valid email address.";
 "login_fail_authen_fail" = "Email or password is not correct. Please try again.";
 "unauthorized_error" = "Your session has expired. Please login again";
-"unknown_error" = "There's something wrong. Please try again.";
+"unknown_error" = "There's something wrong.\nPlease try again.";
 "alert_ok" = "OK";
 "home_today" = "Today";
+"retry_button" = "Retry";
+"load_more_button" = "more";
+"survey_list_load_more_error" = "There's a problem loading data.";
 "survey_start_survey" = "Start Survey";

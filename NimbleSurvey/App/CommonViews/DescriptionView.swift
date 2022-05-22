@@ -13,13 +13,13 @@ class DescriptionView: UIView {
     lazy var titleLabel = UILabel().apply {
         $0.font = Theme.Font.caption
         $0.textColor = Theme.Color.primaryText
-        $0.numberOfLines = 2
+        $0.numberOfLines = 0
     }
 
     lazy var subtitleLabel = UILabel().apply {
         $0.font = Theme.Font.body
         $0.textColor = Theme.Color.primaryText.withAlphaComponent(0.7)
-        $0.numberOfLines = 2
+        $0.numberOfLines = 0
     }
 
     override init(frame: CGRect) {

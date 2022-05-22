@@ -62,8 +62,18 @@ class HomeViewModelTests: XCTestCase {
             .next(100, date)
         ])
 
+        let loadMoreTrigger = scheduler.createColdObservable(
+            [Recorded<Event<Void>>]()
+        )
+
+        let retryTrigger = scheduler.createColdObservable(
+            [Recorded<Event<Void>>]()
+        )
+
         let input = HomeViewModel.Input(
-            viewDidLoadTrigger: viewDidLoadTrigger.asObservable()
+            viewDidLoadTrigger: viewDidLoadTrigger.asObservable(),
+            loadMoreTrigger: loadMoreTrigger.asObservable(),
+            retryTrigger: retryTrigger.asObservable()
         )
 
         let output = homeViewModel.transform(input: input)
@@ -105,51 +115,6 @@ class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(avatarImage.events, expectedAvatarImage)
     }
 
-    func testGetRurveyListFailEmptySection() {
-        guard let date = dateFormatter.date(from: "2022-05-19 12:00:00") else {
-            fatalError("Failed to parse date")
-        }
-
-        mockNimbleSurveyClient = MockNimbleSurveyClient()
-        mockNimbleSurveyClient.surveyListResult = .failure(.unknown)
-        homeViewModel = HomeViewModel(nimbleSurveyClient: mockNimbleSurveyClient)
-
-        let viewDidLoadTrigger = scheduler.createColdObservable([
-            .next(100, date)
-        ])
-
-        let input = HomeViewModel.Input(
-            viewDidLoadTrigger: viewDidLoadTrigger.asObservable()
-        )
-
-        let output = homeViewModel.transform(input: input)
-        let requestInFlight = scheduler.createObserver(Bool.self)
-        let sections = scheduler.createObserver([HomeViewModel.Section].self)
-
-        output.requestInFlight
-            .drive(requestInFlight)
-            .disposed(by: disposeBag)
-
-        output.sections
-            .drive(sections)
-            .disposed(by: disposeBag)
-
-        scheduler.start()
-
-        let expectedRequestInFlight = Recorded.events([
-            .next(100, true)
-        ])
-
-        let expectedSections = Recorded.events([
-            .next(0, [HomeViewModel.Section(items: [HomeViewModel.SectionItem.placeholder])]),
-            .next(100, [HomeViewModel.Section]()),
-            .completed(100)
-        ])
-
-        XCTAssertEqual(requestInFlight.events, expectedRequestInFlight)
-        XCTAssertEqual(sections.events, expectedSections)
-    }
-
     func testGetSurveyListFailEmptySectionWhenViewModelDeallocated() {
         guard let date = dateFormatter.date(from: "2022-05-19 12:00:00") else {
             fatalError("Failed to parse date")
@@ -163,37 +128,151 @@ class HomeViewModelTests: XCTestCase {
             .next(100, date)
         ])
 
+        let loadMoreTrigger = scheduler.createColdObservable(
+            [Recorded<Event<Void>>]()
+        )
+
+        let retryTrigger = scheduler.createColdObservable(
+            [Recorded<Event<Void>>]()
+        )
+
         let input = HomeViewModel.Input(
-            viewDidLoadTrigger: viewDidLoadTrigger.asObservable()
+            viewDidLoadTrigger: viewDidLoadTrigger.asObservable(),
+            loadMoreTrigger: loadMoreTrigger.asObservable(),
+            retryTrigger: retryTrigger.asObservable()
         )
 
         let output = homeViewModel.transform(input: input)
-        let requestInFlight = scheduler.createObserver(Bool.self)
-        let sections = scheduler.createObserver([HomeViewModel.Section].self)
 
-        output.requestInFlight
-            .drive(requestInFlight)
-            .disposed(by: disposeBag)
+        let (
+            showingHeaderView,
+            enableRetry,
+            loadingMore,
+            sections,
+            error
+        ) = scheduler.createHomeViewModelObservers()
 
-        output.sections
-            .drive(sections)
-            .disposed(by: disposeBag)
+        disposeBag.insert(
+            output.showingHeaderView.drive(showingHeaderView),
+            output.enableRetry.drive(enableRetry),
+            output.loadingMore.drive(loadingMore),
+            output.sections.drive(sections),
+            output.error.drive(error)
+        )
 
         // Nil out `homeViewModel`
         homeViewModel = nil
         scheduler.start()
 
-        let expectedRequestInFlight = Recorded<Event<Bool>>.events([])
-
-        let expectedSections = Recorded.events([
-            .next(0, [HomeViewModel.Section(items: [HomeViewModel.SectionItem.placeholder])])
+        let expectedShowingHeaderView = Recorded<Event<Bool>>.events([])
+        let expectedEnableRetry = Recorded.events([
+            .next(0, false)
         ])
 
-        XCTAssertEqual(requestInFlight.events, expectedRequestInFlight)
+        let expectedLoadingMore = Recorded.events([
+            .next(0, false)
+        ])
+
+        let expectedSections = Recorded.events([
+            .next(0, [HomeViewModel.Section(items: [])])
+        ])
+
+        let expectedError = Recorded<Event<SurveyListError>>.events([])
+
+        XCTAssertEqual(showingHeaderView.events, expectedShowingHeaderView)
+        XCTAssertEqual(enableRetry.events, expectedEnableRetry)
+        XCTAssertEqual(loadingMore.events, expectedLoadingMore)
         XCTAssertEqual(sections.events, expectedSections)
+        XCTAssertEqual(error.events, expectedError)
     }
 
-    func testGetSurveyListSucceed() {
+    func testGetSurveyListViewDidLoadFailThenRetryFail() {
+        guard let date = dateFormatter.date(from: "2022-05-19 12:00:00") else {
+            fatalError("Failed to parse date")
+        }
+
+        mockNimbleSurveyClient = MockNimbleSurveyClient()
+        mockNimbleSurveyClient.surveyListResult = .failure(.unknown)
+        homeViewModel = HomeViewModel(nimbleSurveyClient: mockNimbleSurveyClient)
+
+        let viewDidLoadTrigger = scheduler.createColdObservable([
+            .next(100, date)
+        ])
+
+        let loadMoreTrigger = scheduler.createColdObservable(
+            [Recorded<Event<Void>>]()
+        )
+
+        let retryTrigger = scheduler.createColdObservable([
+            .next(200, ())
+        ])
+
+        let input = HomeViewModel.Input(
+            viewDidLoadTrigger: viewDidLoadTrigger.asObservable(),
+            loadMoreTrigger: loadMoreTrigger.asObservable(),
+            retryTrigger: retryTrigger.asObservable()
+        )
+
+        let output = homeViewModel.transform(input: input)
+
+        let (
+            showingHeaderView,
+            enableRetry,
+            loadingMore,
+            sections,
+            error
+        ) = scheduler.createHomeViewModelObservers()
+
+        disposeBag.insert(
+            output.showingHeaderView.drive(showingHeaderView),
+            output.enableRetry.drive(enableRetry),
+            output.loadingMore.drive(loadingMore),
+            output.sections.drive(sections),
+            output.error.drive(error)
+        )
+
+        scheduler.start()
+
+        let expectedShowingHeaderView = Recorded.events([
+            .next(100, true),
+            .next(100, false),
+            .next(200, true),
+            .next(200, false)
+        ])
+
+        let expectedEnableRetry = Recorded.events([
+            .next(0, false),
+            .next(100, false),
+            .next(100, true),
+            .next(200, false),
+            .next(200, true)
+        ])
+
+        let expectedLoadingMore = Recorded.events([
+            .next(0, false)
+        ])
+
+        let expectedSections = Recorded<Event<[HomeViewModel.Section]>>.events([
+            .next(0, [.init(items: [])]),
+            .next(100, [.init(items: [HomeViewModel.SectionItem.placeholder])]),
+            .next(100, [.init(items: [])]),
+            .next(200, [.init(items: [HomeViewModel.SectionItem.placeholder])]),
+            .next(200, [.init(items: [])])
+        ])
+
+        let expectedError = Recorded.events([
+            .next(100, SurveyListError.failToRefresh),
+            .next(200, SurveyListError.failToRefresh)
+        ])
+
+        XCTAssertEqual(showingHeaderView.events, expectedShowingHeaderView)
+        XCTAssertEqual(enableRetry.events, expectedEnableRetry)
+        XCTAssertEqual(loadingMore.events, expectedLoadingMore)
+        XCTAssertEqual(sections.events, expectedSections)
+        XCTAssertEqual(error.events, expectedError)
+    }
+
+    func testViewDidLoadGetSurveyListSucceed() {
         guard let date = dateFormatter.date(from: "2022-05-19 12:00:00") else {
             fatalError("Failed to parse date")
         }
@@ -207,44 +286,316 @@ class HomeViewModelTests: XCTestCase {
 
         mockNimbleSurveyClient = MockNimbleSurveyClient()
         mockNimbleSurveyClient.surveyListResult = .success([survey])
-
         homeViewModel = HomeViewModel(nimbleSurveyClient: mockNimbleSurveyClient)
 
         let viewDidLoadTrigger = scheduler.createColdObservable([
             .next(100, date)
         ])
 
+        let loadMoreTrigger = scheduler.createColdObservable(
+            [Recorded<Event<Void>>]()
+        )
+
+        let retryTrigger = scheduler.createColdObservable(
+            [Recorded<Event<Void>>]()
+        )
+
         let input = HomeViewModel.Input(
-            viewDidLoadTrigger: viewDidLoadTrigger.asObservable()
+            viewDidLoadTrigger: viewDidLoadTrigger.asObservable(),
+            loadMoreTrigger: loadMoreTrigger.asObservable(),
+            retryTrigger: retryTrigger.asObservable()
         )
 
         let output = homeViewModel.transform(input: input)
-        let requestInFlight = scheduler.createObserver(Bool.self)
-        let sections = scheduler.createObserver([HomeViewModel.Section].self)
 
-        output.requestInFlight
-            .drive(requestInFlight)
-            .disposed(by: disposeBag)
+        let (
+            showingHeaderView,
+            enableRetry,
+            loadingMore,
+            sections,
+            error
+        ) = scheduler.createHomeViewModelObservers()
 
-        output.sections
-            .drive(sections)
-            .disposed(by: disposeBag)
+        disposeBag.insert(
+            output.showingHeaderView.drive(showingHeaderView),
+            output.enableRetry.drive(enableRetry),
+            output.loadingMore.drive(loadingMore),
+            output.sections.drive(sections),
+            output.error.drive(error)
+        )
 
         scheduler.start()
 
-        let expectedRequestInFlight = Recorded.events([
+        let expectedShowingHeaderView = Recorded.events([
+            .next(100, true),
+            .next(100, false)
+        ])
+
+        let expectedEnableRetry = Recorded.events([
+            .next(0, false),
+            .next(100, false)
+        ])
+
+        let expectedLoadingMore = Recorded.events([
+            .next(0, false)
+        ])
+
+        let surveyViewModel = SurveyViewModel(survey: survey)
+        let expectedSections = Recorded<Event<[HomeViewModel.Section]>>.events([
+            .next(0, [.init(items: [])]),
+            .next(100, [.init(items: [HomeViewModel.SectionItem.placeholder])]),
+            .next(100, [.init(items: [HomeViewModel.SectionItem.survey(surveyViewModel)])])
+        ])
+
+        let expectedError = Recorded<Event<SurveyListError>>.events([])
+
+        XCTAssertEqual(showingHeaderView.events, expectedShowingHeaderView)
+        XCTAssertEqual(enableRetry.events, expectedEnableRetry)
+        XCTAssertEqual(loadingMore.events, expectedLoadingMore)
+        XCTAssertEqual(sections.events, expectedSections)
+        XCTAssertEqual(error.events, expectedError)
+    }
+
+    func testGetSurveyListLoadMoreFailGettingData() {
+        mockNimbleSurveyClient = MockNimbleSurveyClient()
+        mockNimbleSurveyClient.surveyListResult = .failure(.unknown)
+        homeViewModel = HomeViewModel(nimbleSurveyClient: mockNimbleSurveyClient)
+
+        let viewDidLoadTrigger = scheduler.createColdObservable(
+            [Recorded<Event<Date>>]()
+        )
+
+        // Hack here: load more when view did load hasn't been triggered!!!
+        let loadMoreTrigger = scheduler.createColdObservable([
+            .next(100, ())
+        ])
+
+        let retryTrigger = scheduler.createColdObservable(
+            [Recorded<Event<Void>>]()
+        )
+
+        let input = HomeViewModel.Input(
+            viewDidLoadTrigger: viewDidLoadTrigger.asObservable(),
+            loadMoreTrigger: loadMoreTrigger.asObservable(),
+            retryTrigger: retryTrigger.asObservable()
+        )
+
+        let output = homeViewModel.transform(input: input)
+
+        let (
+            showingHeaderView,
+            enableRetry,
+            loadingMore,
+            sections,
+            error
+        ) = scheduler.createHomeViewModelObservers()
+
+        disposeBag.insert(
+            output.showingHeaderView.drive(showingHeaderView),
+            output.enableRetry.drive(enableRetry),
+            output.loadingMore.drive(loadingMore),
+            output.sections.drive(sections),
+            output.error.drive(error)
+        )
+
+        scheduler.start()
+
+        let expectedShowingHeaderView = Recorded<Event<Bool>>.events([])
+
+        let expectedEnableRetry = Recorded.events([
+            .next(0, false)
+        ])
+
+        let expectedLoadingMore = Recorded.events([
+            .next(0, false),
+            .next(100, true),
+            .next(100, false)
+        ])
+
+        let expectedSections = Recorded<Event<[HomeViewModel.Section]>>.events([
+            .next(0, [.init(items: [])]),
+            .next(100, [.init(items: [])])
+        ])
+
+        let expectedError = Recorded.events([
+            .next(100, SurveyListError.failToLoadmore)
+        ])
+
+        XCTAssertEqual(showingHeaderView.events, expectedShowingHeaderView)
+        XCTAssertEqual(enableRetry.events, expectedEnableRetry)
+        XCTAssertEqual(loadingMore.events, expectedLoadingMore)
+        XCTAssertEqual(sections.events, expectedSections)
+        XCTAssertEqual(error.events, expectedError)
+    }
+
+    func testGetSurveyListLoadMoreFailAuthorizing() {
+        mockNimbleSurveyClient = MockNimbleSurveyClient()
+        mockNimbleSurveyClient.surveyListResult = .failure(.unAuthorized)
+        homeViewModel = HomeViewModel(nimbleSurveyClient: mockNimbleSurveyClient)
+
+        let viewDidLoadTrigger = scheduler.createColdObservable(
+            [Recorded<Event<Date>>]()
+        )
+
+        // Hack here: load more when view did load hasn't been triggered!!!
+        let loadMoreTrigger = scheduler.createColdObservable([
+            .next(100, ())
+        ])
+
+        let retryTrigger = scheduler.createColdObservable(
+            [Recorded<Event<Void>>]()
+        )
+
+        let input = HomeViewModel.Input(
+            viewDidLoadTrigger: viewDidLoadTrigger.asObservable(),
+            loadMoreTrigger: loadMoreTrigger.asObservable(),
+            retryTrigger: retryTrigger.asObservable()
+        )
+
+        let output = homeViewModel.transform(input: input)
+
+        let (
+            showingHeaderView,
+            enableRetry,
+            loadingMore,
+            sections,
+            error
+        ) = scheduler.createHomeViewModelObservers()
+
+        disposeBag.insert(
+            output.showingHeaderView.drive(showingHeaderView),
+            output.enableRetry.drive(enableRetry),
+            output.loadingMore.drive(loadingMore),
+            output.sections.drive(sections),
+            output.error.drive(error)
+        )
+
+        scheduler.start()
+
+        let expectedShowingHeaderView = Recorded<Event<Bool>>.events([])
+
+        let expectedEnableRetry = Recorded.events([
+            .next(0, false)
+        ])
+
+        let expectedLoadingMore = Recorded.events([
+            .next(0, false),
+            .next(100, true),
+            .next(100, false)
+        ])
+
+        let expectedSections = Recorded<Event<[HomeViewModel.Section]>>.events([
+            .next(0, [.init(items: [])]),
+            .next(100, [.init(items: [])])
+        ])
+
+        let expectedError = Recorded.events([
+            .next(100, SurveyListError.unAuthorized)
+        ])
+
+        XCTAssertEqual(showingHeaderView.events, expectedShowingHeaderView)
+        XCTAssertEqual(enableRetry.events, expectedEnableRetry)
+        XCTAssertEqual(loadingMore.events, expectedLoadingMore)
+        XCTAssertEqual(sections.events, expectedSections)
+        XCTAssertEqual(error.events, expectedError)
+    }
+
+    func testLoadMoreSurveyListSucceed() {
+        let survey = Survey(
+            id: "123",
+            title: "Lorem",
+            description: "Lorem",
+            coverImageUrl: nil
+        )
+
+        mockNimbleSurveyClient = MockNimbleSurveyClient()
+        mockNimbleSurveyClient.surveyListResult = .success([survey])
+        homeViewModel = HomeViewModel(nimbleSurveyClient: mockNimbleSurveyClient)
+
+        let viewDidLoadTrigger = scheduler.createColdObservable(
+            [Recorded<Event<Date>>]()
+        )
+
+        // Hack here: load more when view did load hasn't been triggered!!!
+        let loadMoreTrigger = scheduler.createColdObservable([
+            .next(100, ())
+        ])
+
+        let retryTrigger = scheduler.createColdObservable(
+            [Recorded<Event<Void>>]()
+        )
+
+        let input = HomeViewModel.Input(
+            viewDidLoadTrigger: viewDidLoadTrigger.asObservable(),
+            loadMoreTrigger: loadMoreTrigger.asObservable(),
+            retryTrigger: retryTrigger.asObservable()
+        )
+
+        let output = homeViewModel.transform(input: input)
+
+        let (
+            showingHeaderView,
+            enableRetry,
+            loadingMore,
+            sections,
+            error
+        ) = scheduler.createHomeViewModelObservers()
+
+        disposeBag.insert(
+            output.showingHeaderView.drive(showingHeaderView),
+            output.enableRetry.drive(enableRetry),
+            output.loadingMore.drive(loadingMore),
+            output.sections.drive(sections),
+            output.error.drive(error)
+        )
+
+        scheduler.start()
+
+        let expectedShowingHeaderView = Recorded<Event<Bool>>.events([])
+
+        let expectedEnableRetry = Recorded.events([
+            .next(0, false)
+        ])
+
+        let expectedLoadingMore = Recorded.events([
+            .next(0, false),
             .next(100, true),
             .next(100, false)
         ])
 
         let surveyViewModel = SurveyViewModel(survey: survey)
-
         let expectedSections = Recorded<Event<[HomeViewModel.Section]>>.events([
-            .next(0, [.init(items: [HomeViewModel.SectionItem.placeholder])]),
+            .next(0, [.init(items: [])]),
             .next(100, [.init(items: [HomeViewModel.SectionItem.survey(surveyViewModel)])])
         ])
 
-        XCTAssertEqual(requestInFlight.events, expectedRequestInFlight)
+        let expectedError = Recorded<Event<SurveyListError>>.events([])
+
+        XCTAssertEqual(showingHeaderView.events, expectedShowingHeaderView)
+        XCTAssertEqual(enableRetry.events, expectedEnableRetry)
+        XCTAssertEqual(loadingMore.events, expectedLoadingMore)
         XCTAssertEqual(sections.events, expectedSections)
+        XCTAssertEqual(error.events, expectedError)
+    }
+}
+
+// MARK: - Helpers
+
+extension TestScheduler {
+    // swiftlint:disable:next large_tuple
+    func createHomeViewModelObservers() -> (
+        TestableObserver<Bool>,
+        TestableObserver<Bool>,
+        TestableObserver<Bool>,
+        TestableObserver<[HomeViewModel.Section]>,
+        TestableObserver<SurveyListError>
+    ) {
+        return (
+            createObserver(Bool.self),
+            createObserver(Bool.self),
+            createObserver(Bool.self),
+            createObserver([HomeViewModel.Section].self),
+            createObserver(SurveyListError.self)
+        )
     }
 }

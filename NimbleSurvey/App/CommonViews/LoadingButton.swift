@@ -10,6 +10,17 @@ import UIKit
 
 class LoadingButton: UIButton {
 
+    enum Style {
+        case white
+        case gray
+    }
+
+    var indicatorStyle: Style = .gray {
+        didSet {
+            loadingIndicator.style = indicatorStyle.indicatorViewStyle
+        }
+    }
+
     private lazy var loadingIndicator = UIActivityIndicatorView().apply {
         $0.hidesWhenStopped = true
     }
@@ -51,6 +62,16 @@ extension LoadingButton {
         } else {
             titleLabel?.alpha = 1
             loadingIndicator.stopAnimating()
+        }
+    }
+}
+
+// swiftlint:disable:next extension_access_modifier
+extension LoadingButton.Style {
+    fileprivate var indicatorViewStyle: UIActivityIndicatorView.Style {
+        switch self {
+        case .white: return .white
+        case .gray: return .gray
         }
     }
 }
